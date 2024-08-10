@@ -19,12 +19,12 @@ public class SupportTicket {
 	private Long id;
 
 	@Column(name = "Name", nullable = false)
-	@NotBlank
+	@NotBlank(message = "Name is mandatory")
 	@Size(max = 50)
 	private String name;
 
 	@Column(name = "Description", nullable = false)
-	@NotBlank
+	@NotBlank(message = "Description is mandatory")
 	@Size(max = 250)
 	private String description;
 

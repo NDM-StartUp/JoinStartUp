@@ -37,7 +37,7 @@ public class EmployeeEducation {
 
 	@Column(name = "Beginning_Date", nullable = false)
 	@Temporal(TemporalType.DATE)
-	@NotNull
+	@NotNull(message = "Beginning date cannot be null")
 	private Date beginningDate;
 
 	@Column(name = "Finishing_Date")
