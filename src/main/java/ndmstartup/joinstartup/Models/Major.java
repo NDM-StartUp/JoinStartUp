@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Major")
 @Getter
@@ -24,4 +27,6 @@ public class Major {
     @Size(max = 50)
     private String name;
 
+    @OneToMany(mappedBy = "major", cascade = CascadeType.ALL)
+    private List<EmployeeEducation> employeeEducations = new ArrayList<>();
 }

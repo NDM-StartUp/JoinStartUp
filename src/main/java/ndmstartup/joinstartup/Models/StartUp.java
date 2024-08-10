@@ -48,7 +48,7 @@ public class StartUp {
     private String Location;
 
     @Column(name = "Is_Paid", nullable = false)
-    @NotBlank(message = "Is is paid or not is mandatory")
+    @NotBlank(message = "Is it paid or not is mandatory")
     private boolean isPaid;
 
     @OneToMany(mappedBy = "startUp", cascade = CascadeType.ALL)

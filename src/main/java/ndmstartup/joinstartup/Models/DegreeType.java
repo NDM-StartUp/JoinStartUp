@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Degree_Type")
 @Getter
@@ -24,4 +27,6 @@ public class DegreeType {
     @Size(max = 50)
     private String name;
 
+    @OneToMany(mappedBy = "degreeType", cascade = CascadeType.ALL)
+    private List<EmployeeEducation> employeeEducations = new ArrayList<>();
 }

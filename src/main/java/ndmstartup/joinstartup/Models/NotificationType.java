@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "Notification_Type")
 @Getter
@@ -24,4 +27,6 @@ public class NotificationType {
     @Size(max = 25)
     private String name;
 
+    @OneToMany(mappedBy = "notificationType", cascade = CascadeType.ALL)
+    private Set<Notification> notifications = new HashSet<>();
 }

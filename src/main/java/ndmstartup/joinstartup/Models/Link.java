@@ -13,14 +13,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Link {
-
-
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
 
     @Column(name = "Link", nullable = false)
     @NotBlank(message = "Link is mandatory")
@@ -30,4 +26,8 @@ public class Link {
     @ManyToOne
     @JoinColumn(name="Site_Id", nullable=false)
     private Site site;
+
+    @ManyToOne
+    @JoinColumn(name = "User_Id", nullable = false)
+    private User user;
 }
