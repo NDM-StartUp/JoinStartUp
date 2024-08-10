@@ -36,7 +36,7 @@ public class User {
 	private String email;
 
 	@Column(name = "Phone")
-	@Size(max = 20)
+	@Size(max =20)
 	@Pattern(regexp = "\\+?[0-9\\-\\.\\(\\)\\s]+", message = "Invalid phone number")
 	private String phone;
 
