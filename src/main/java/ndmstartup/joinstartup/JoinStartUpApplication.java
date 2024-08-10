@@ -9,5 +9,4 @@ public class JoinStartUpApplication {
     public static void main(String[] args) {
         SpringApplication.run(JoinStartUpApplication.class, args);
     }
-    //asd
 }
