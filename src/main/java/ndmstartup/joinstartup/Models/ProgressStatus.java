@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Progress_Status")
@@ -28,6 +28,6 @@ public class ProgressStatus {
     private String name;
 
     @OneToMany(mappedBy = "progressStatus", cascade = CascadeType.ALL)
-    private Set<StartUpStatus> startUpStatus = new HashSet<>();
+    private List<StartUpStatus> startUpStatus = new ArrayList<>();
 
 }

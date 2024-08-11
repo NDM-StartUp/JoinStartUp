@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Skill")
@@ -28,6 +28,6 @@ public class Skill {
     private String name;
 
     @ManyToMany(mappedBy = "skills")
-    private Set<StartUp> startUps = new HashSet<>();
+    private List<StartUp> startUps = new ArrayList<>();
 
 }

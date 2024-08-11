@@ -18,6 +18,6 @@ public class Employer {
 
 	@OneToOne
 	@MapsId
-	@JoinColumn(name = "User_id", nullable = true)
+	@JoinColumn(name = "User_id", nullable = false)
 	private User user;
 }

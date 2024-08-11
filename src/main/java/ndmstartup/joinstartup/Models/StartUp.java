@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "StartUp")
@@ -52,7 +52,7 @@ public class StartUp {
     private boolean isPaid;
 
     @OneToMany(mappedBy = "startUp", cascade = CascadeType.ALL)
-    private Set<StartUpStatus> startUpStatus = new HashSet<>();
+    private List<StartUpStatus> startUpStatus = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -60,6 +60,6 @@ public class StartUp {
             joinColumns = @JoinColumn(name = "StartUp_Id"),
             inverseJoinColumns = @JoinColumn(name = "Skill_Id")
     )
-    private Set<Skill> skills = new HashSet<>();
+    private List<Skill> skills = new ArrayList<>();
 
 }

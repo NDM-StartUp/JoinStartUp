@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -63,7 +65,7 @@ public class User {
 	private Employee employee;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<Link> links = new HashSet<>();
+	private List<Link> links = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<SupportTicket> supportTickets = new ArrayList<>();
@@ -74,5 +76,5 @@ public class User {
 			joinColumns = @JoinColumn(name = "Status_Id"),
 			inverseJoinColumns = @JoinColumn(name = "User_Id")
 	)
-	private Set<Status> statuses = new HashSet<>();
+	private List<Status> statuses = new ArrayList<>();
 }

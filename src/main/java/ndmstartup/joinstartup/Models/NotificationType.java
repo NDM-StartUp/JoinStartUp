@@ -7,8 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "Notification_Type")
@@ -28,5 +29,5 @@ public class NotificationType {
     private String name;
 
     @OneToMany(mappedBy = "notificationType", cascade = CascadeType.ALL)
-    private Set<Notification> notifications = new HashSet<>();
+    private List<Notification> notifications = new ArrayList<>();
 }

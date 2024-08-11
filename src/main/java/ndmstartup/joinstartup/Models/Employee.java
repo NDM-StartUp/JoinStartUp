@@ -21,7 +21,7 @@ public class Employee {
 
 	@OneToOne
 	@MapsId
-	@JoinColumn(name = "User_Id", nullable = true)
+	@JoinColumn(name = "User_Id", nullable = false)
 	private User user;
 
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
