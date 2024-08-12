@@ -26,4 +26,21 @@ public class Employee {
 
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 	private List<EmployeeEducation> employeeEducations = new ArrayList<>();
+
+	@ManyToMany
+	@JoinTable(
+			name = "Employee_Skill",
+			joinColumns = @JoinColumn(name = "Skill_Id"),
+			inverseJoinColumns = @JoinColumn(name = "Employee_Id")
+	)
+	private List<Skill> skills = new ArrayList<>();
+
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+	private List<EmployeeCv> employeeCvs = new ArrayList<>();
+
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+	private List<WorkEmployee> employeePositions = new ArrayList<>();
+
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+	private List<StartUpEmployee> startUpTeam = new ArrayList<>();
 }

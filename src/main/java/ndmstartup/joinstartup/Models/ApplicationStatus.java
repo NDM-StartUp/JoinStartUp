@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Application_Status")
 @Getter
@@ -24,4 +27,6 @@ public class ApplicationStatus {
     @Size(max = 25)
     private String name;
 
+    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    private List<ApplicationCv> cvs = new ArrayList<>();
 }

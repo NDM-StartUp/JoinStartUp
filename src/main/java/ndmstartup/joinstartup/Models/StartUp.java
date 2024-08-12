@@ -62,4 +62,17 @@ public class StartUp {
     )
     private List<Skill> skills = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "Employer_StartUp",
+            joinColumns = @JoinColumn(name = "Employer_Id"),
+            inverseJoinColumns = @JoinColumn(name = "StartUp_Id")
+    )
+    private List<Employer> employers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "startUp", cascade = CascadeType.ALL)
+    private List<ApplicationCv> cvs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "startUp", cascade = CascadeType.ALL)
+    private List<StartUpEmployee> startUpTeam = new ArrayList<>();
 }

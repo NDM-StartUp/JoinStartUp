@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Position")
 @Getter
@@ -24,4 +27,9 @@ public class Position {
     @Size(max = 50)
     private String name;
 
+    @OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
+    private List<WorkEmployee> employeePositions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
+    private List<StartUpEmployee> startUpTeam = new ArrayList<>();
 }

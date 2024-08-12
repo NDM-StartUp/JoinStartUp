@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Employer")
 @Getter
@@ -20,4 +23,7 @@ public class Employer {
 	@MapsId
 	@JoinColumn(name = "User_id", nullable = false)
 	private User user;
+
+	@ManyToMany(mappedBy = "employers")
+	private List<StartUp> startUps = new ArrayList<>();
 }

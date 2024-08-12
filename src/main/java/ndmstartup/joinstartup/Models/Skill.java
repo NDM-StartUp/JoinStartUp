@@ -30,4 +30,6 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     private List<StartUp> startUps = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "skills")
+    private List<Employee> employees = new ArrayList<>();
 }
