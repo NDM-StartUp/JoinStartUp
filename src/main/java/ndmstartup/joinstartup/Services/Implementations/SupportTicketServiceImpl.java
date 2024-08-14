@@ -23,7 +23,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     private final SupportTicketMapper supportTicketMapper;
 
     @Override
-    public GetSupportTicketDTO GetSupportTicketByTicketId(Long ticketId) {
+    public GetSupportTicketDTO getSupportTicketByTicketId(Long ticketId) {
         SupportTicket supportTicket = supportTicketRepository
                 .findById(ticketId)
                 .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
@@ -33,8 +33,8 @@ public class SupportTicketServiceImpl implements SupportTicketService {
 
     @Override
     @Transactional
-    public GetSupportTicketDTO AddSupportTicket(Long userId, PostSupportTicketDTO supportTicketDTO) {
-        SupportTicket supportTicket = supportTicketMapper.PostDTOToEntity(supportTicketDTO, userId);
+    public GetSupportTicketDTO addSupportTicket(Long userId, PostSupportTicketDTO supportTicketDTO) {
+        SupportTicket supportTicket = supportTicketMapper.postDTOToEntity(supportTicketDTO, userId);
 
         supportTicket = supportTicketRepository.save(supportTicket);
 
@@ -42,7 +42,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     }
 
     @Override
-    public List<GetSupportTicketDTO> GetAllSupportTicketsByUserId(Long userId) {
+    public List<GetSupportTicketDTO> getAllSupportTicketsByUserId(Long userId) {
         List<SupportTicket> supportTicket = supportTicketRepository
                 .findAllByUserId(userId);
 
@@ -50,7 +50,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     }
 
     @Override
-    public List<GetSupportTicketDTO> GetAllSupportTicketsByStatus(String status) {
+    public List<GetSupportTicketDTO> getAllSupportTicketsByStatus(String status) {
         List<SupportTicket> supportTicket = supportTicketRepository
                 .findAllByStatusName(status);
 
@@ -58,13 +58,13 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     }
 
     @Override
-    public List<GetSupportTicketDTO> GetAllSupportTickets() {
+    public List<GetSupportTicketDTO> getAllSupportTickets() {
         List<SupportTicket> supportTicket = supportTicketRepository.findAll();
         return supportTicket.stream().map(supportTicketMapper::entityToGetDTO).toList();
     }
 
     @Override
-    public void DeleteSupportTicket(Long ticketId) {
+    public void deleteSupportTicket(Long ticketId) {
 
         SupportTicket supportTicket = supportTicketRepository.findById(ticketId)
                 .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
@@ -73,7 +73,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     }
 
     @Override
-    public GetSupportTicketDTO ChangeSupportTicketStatus(Long ticketId, String status) {
+    public GetSupportTicketDTO changeSupportTicketStatus(Long ticketId, String status) {
         SupportTicket supportTicket = supportTicketRepository.findById(ticketId)
                 .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
 

@@ -39,7 +39,7 @@ public class SupportTicketMapper {
                 .build();
     }
 
-    public SupportTicket PostDTOToEntity(PostSupportTicketDTO supportTicket, Long userId) {
+    public SupportTicket postDTOToEntity(PostSupportTicketDTO supportTicket, Long userId) {
         return SupportTicket.builder()
                 .name(supportTicket.getName())
                 .description(supportTicket.getDescription())

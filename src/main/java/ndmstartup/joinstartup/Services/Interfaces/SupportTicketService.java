@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface SupportTicketService {
 
-    GetSupportTicketDTO GetSupportTicketByTicketId(Long ticketId);
+    GetSupportTicketDTO getSupportTicketByTicketId(Long ticketId);
 
-    GetSupportTicketDTO AddSupportTicket(Long userId, PostSupportTicketDTO supportTicketDTO);
+    GetSupportTicketDTO addSupportTicket(Long userId, PostSupportTicketDTO supportTicketDTO);
 
-    List<GetSupportTicketDTO> GetAllSupportTicketsByUserId(Long userId);
+    List<GetSupportTicketDTO> getAllSupportTicketsByUserId(Long userId);
 
-    List<GetSupportTicketDTO> GetAllSupportTicketsByStatus(String status);
+    List<GetSupportTicketDTO> getAllSupportTicketsByStatus(String status);
 
-    List<GetSupportTicketDTO> GetAllSupportTickets();
+    List<GetSupportTicketDTO> getAllSupportTickets();
 
-    void DeleteSupportTicket(Long ticketId);
+    void deleteSupportTicket(Long ticketId);
 
-    GetSupportTicketDTO ChangeSupportTicketStatus(Long ticketId, String status);
+    GetSupportTicketDTO changeSupportTicketStatus(Long ticketId, String status);
 }
