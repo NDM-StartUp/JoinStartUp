@@ -3,7 +3,7 @@ package ndmstartup.joinstartup.Controllers;
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.GetSupportTicketDTO;
 import ndmstartup.joinstartup.DTOs.PostSupportTicketDTO;
-import ndmstartup.joinstartup.Services.Implementations.SupportTicketServiceImpl;
+import ndmstartup.joinstartup.Services.Interfaces.SupportTicketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/support-ticket")
 public class SupportTicketController {
 
-    private final SupportTicketServiceImpl supportTicketService;
+    private final SupportTicketService supportTicketService;
 
     @GetMapping("/{ticketId}")
     public ResponseEntity<GetSupportTicketDTO> getSupportTicketByTicketId(@PathVariable Long ticketId) {
