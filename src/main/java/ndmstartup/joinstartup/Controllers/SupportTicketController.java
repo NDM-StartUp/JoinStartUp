@@ -2,7 +2,6 @@ package ndmstartup.joinstartup.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.GetSupportTicketDTO;
-import ndmstartup.joinstartup.DTOs.PostSupportTicketDTO;
 import ndmstartup.joinstartup.Services.Interfaces.SupportTicketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +21,6 @@ public class SupportTicketController {
         return ResponseEntity.ok(supportTicket);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<GetSupportTicketDTO>> getSupportTicketByUserId(@PathVariable Long userId) {
-        List<GetSupportTicketDTO> supportTicket = supportTicketService.getAllSupportTicketsByUserId(userId);
-        return ResponseEntity.ok(supportTicket);
-    }
 
     @GetMapping("/status/{status}")
     public ResponseEntity<List<GetSupportTicketDTO>> getSupportTicketByStatus(@PathVariable String status) {
@@ -37,13 +31,6 @@ public class SupportTicketController {
     @GetMapping("/all")
     public ResponseEntity<List<GetSupportTicketDTO>> getAllSupportTickets() {
         List<GetSupportTicketDTO> supportTicket = supportTicketService.getAllSupportTickets();
-        return ResponseEntity.ok(supportTicket);
-    }
-
-    @PostMapping
-    public ResponseEntity<GetSupportTicketDTO> addSupportTicket(@RequestParam("userId") Long userId,
-                                                                @RequestBody PostSupportTicketDTO supportTicketDTO) {
-        GetSupportTicketDTO supportTicket = supportTicketService.addSupportTicket(userId, supportTicketDTO);
         return ResponseEntity.ok(supportTicket);
     }
 

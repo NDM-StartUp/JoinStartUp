@@ -2,14 +2,12 @@ package ndmstartup.joinstartup.Services.Implementations;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.GetSupportTicketDTO;
-import ndmstartup.joinstartup.DTOs.PostSupportTicketDTO;
 import ndmstartup.joinstartup.Mappers.SupportTicketMapper;
 import ndmstartup.joinstartup.Models.SupportTicket;
 import ndmstartup.joinstartup.Repositories.SupportTicketRepository;
 import ndmstartup.joinstartup.Repositories.TicketStatusRepository;
 import ndmstartup.joinstartup.Services.Interfaces.SupportTicketService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -29,24 +27,6 @@ public class SupportTicketServiceImpl implements SupportTicketService {
                 .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
 
         return supportTicketMapper.entityToGetDTO(supportTicket);
-    }
-
-    @Override
-    @Transactional
-    public GetSupportTicketDTO addSupportTicket(Long userId, PostSupportTicketDTO supportTicketDTO) {
-        SupportTicket supportTicket = supportTicketMapper.postDTOToEntity(supportTicketDTO, userId);
-
-        supportTicket = supportTicketRepository.save(supportTicket);
-
-        return supportTicketMapper.entityToGetDTO(supportTicket);
-    }
-
-    @Override
-    public List<GetSupportTicketDTO> getAllSupportTicketsByUserId(Long userId) {
-        List<SupportTicket> supportTicket = supportTicketRepository
-                .findAllByUserId(userId);
-
-        return supportTicket.stream().map(supportTicketMapper::entityToGetDTO).toList();
     }
 
     @Override
