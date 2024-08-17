@@ -2,7 +2,6 @@ package ndmstartup.joinstartup.Mappers;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.GetSupportTicketDTO;
-import ndmstartup.joinstartup.DTOs.GetSupportTicketUserDTO;
 import ndmstartup.joinstartup.DTOs.PostSupportTicketDTO;
 import ndmstartup.joinstartup.Models.Status;
 import ndmstartup.joinstartup.Models.SupportTicket;
@@ -19,13 +18,13 @@ public class SupportTicketMapper {
     private final UserRepository userRepository;
     private final TicketStatusRepository ticketStatusRepository;
 
-    public GetSupportTicketDTO entityToGetDTO(SupportTicket supportTicket) {
+    public GetSupportTicketDTO entityToDTO(SupportTicket supportTicket) {
         return GetSupportTicketDTO.builder()
                 .id(supportTicket.getId())
                 .name(supportTicket.getName())
                 .description(supportTicket.getDescription())
                 .user(
-                        GetSupportTicketUserDTO.builder()
+                        GetSupportTicketDTO.UserDTO.builder()
                                 .id(supportTicket.getUser().getId())
                                 .firstName(supportTicket.getUser().getFirstName())
                                 .lastName(supportTicket.getUser().getLastName())
@@ -39,7 +38,7 @@ public class SupportTicketMapper {
                 .build();
     }
 
-    public SupportTicket postDTOToEntity(PostSupportTicketDTO supportTicket, Long userId) {
+    public SupportTicket DTOToEntity(PostSupportTicketDTO supportTicket, Long userId) {
         return SupportTicket.builder()
                 .name(supportTicket.getName())
                 .description(supportTicket.getDescription())

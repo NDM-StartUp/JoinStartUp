@@ -24,17 +24,17 @@ public class UserServiceImpl implements UserService {
         List<SupportTicket> supportTicket = supportTicketRepository
                 .findAllByUserId(userId);
 
-        return supportTicket.stream().map(supportTicketMapper::entityToGetDTO).toList();
+        return supportTicket.stream().map(supportTicketMapper::entityToDTO).toList();
     }
 
     @Override
     @Transactional
     public GetSupportTicketDTO addSupportTicket(Long userId, PostSupportTicketDTO supportTicketDTO) {
-        SupportTicket supportTicket = supportTicketMapper.postDTOToEntity(supportTicketDTO, userId);
+        SupportTicket supportTicket = supportTicketMapper.DTOToEntity(supportTicketDTO, userId);
 
         supportTicket = supportTicketRepository.save(supportTicket);
 
-        return supportTicketMapper.entityToGetDTO(supportTicket);
+        return supportTicketMapper.entityToDTO(supportTicket);
     }
 
 }

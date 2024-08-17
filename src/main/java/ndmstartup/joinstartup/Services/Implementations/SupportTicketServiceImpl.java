@@ -26,7 +26,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
                 .findById(ticketId)
                 .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
 
-        return supportTicketMapper.entityToGetDTO(supportTicket);
+        return supportTicketMapper.entityToDTO(supportTicket);
     }
 
     @Override
@@ -34,13 +34,13 @@ public class SupportTicketServiceImpl implements SupportTicketService {
         List<SupportTicket> supportTicket = supportTicketRepository
                 .findAllByStatusName(status);
 
-        return supportTicket.stream().map(supportTicketMapper::entityToGetDTO).toList();
+        return supportTicket.stream().map(supportTicketMapper::entityToDTO).toList();
     }
 
     @Override
     public List<GetSupportTicketDTO> getAllSupportTickets() {
         List<SupportTicket> supportTicket = supportTicketRepository.findAll();
-        return supportTicket.stream().map(supportTicketMapper::entityToGetDTO).toList();
+        return supportTicket.stream().map(supportTicketMapper::entityToDTO).toList();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
 
         supportTicket = supportTicketRepository.save(supportTicket);
 
-        return supportTicketMapper.entityToGetDTO(supportTicket);
+        return supportTicketMapper.entityToDTO(supportTicket);
     }
 
 }
