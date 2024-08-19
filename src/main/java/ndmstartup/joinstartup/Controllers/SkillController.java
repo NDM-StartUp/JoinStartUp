@@ -2,7 +2,7 @@ package ndmstartup.joinstartup.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.GetSkillDTO;
-import ndmstartup.joinstartup.Services.Implementations.SkillServiceImpl;
+import ndmstartup.joinstartup.Services.Interfaces.SkillService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/skills")
 public class SkillController {
 
-	private final SkillServiceImpl skillService;
+	private final SkillService skillService;
 
 	@GetMapping("/all")
 	public ResponseEntity<List<GetSkillDTO>> getAllSkills() {
