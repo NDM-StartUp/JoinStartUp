@@ -1,8 +1,8 @@
 package ndmstartup.joinstartup.Services.Implementations;
 
 import lombok.RequiredArgsConstructor;
-import ndmstartup.joinstartup.DTOs.GetEducationDTO;
-import ndmstartup.joinstartup.DTOs.GetExperienceDTO;
+import ndmstartup.joinstartup.DTOs.GetEmployeeEducationDTO;
+import ndmstartup.joinstartup.DTOs.GetEmployeeExperienceDTO;
 import ndmstartup.joinstartup.Mappers.EmployeeMapper;
 import ndmstartup.joinstartup.Models.Employee;
 import ndmstartup.joinstartup.Repositories.EmployeeRepository;
@@ -19,14 +19,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeMapper employeeMapper;
 
     @Override
-    public GetExperienceDTO getExperienceByEmployeeId(Long employeeId) {
+    public GetEmployeeExperienceDTO getExperienceByEmployeeId(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(()->new NoSuchElementException("Employee not found"));
 
         return employeeMapper.entityToExperienceDTO(employee);
     }
 
     @Override
-    public GetEducationDTO getEducationByEmployeeId(Long employeeId) {
+    public GetEmployeeEducationDTO getEducationByEmployeeId(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(()->new NoSuchElementException("Employee not found"));
 
         return employeeMapper.entityToEducationDTO(employee);

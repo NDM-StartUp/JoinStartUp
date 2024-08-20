@@ -1,18 +1,18 @@
 package ndmstartup.joinstartup.Mappers;
 
-import ndmstartup.joinstartup.DTOs.GetEducationDTO;
-import ndmstartup.joinstartup.DTOs.GetExperienceDTO;
+import ndmstartup.joinstartup.DTOs.GetEmployeeEducationDTO;
+import ndmstartup.joinstartup.DTOs.GetEmployeeExperienceDTO;
 import ndmstartup.joinstartup.Models.Employee;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeMapper {
 
-    public GetExperienceDTO entityToExperienceDTO(Employee employee) {
+    public GetEmployeeExperienceDTO entityToExperienceDTO(Employee employee) {
 
-        return GetExperienceDTO.builder()
+        return GetEmployeeExperienceDTO.builder()
                 .employeeId(employee.getId())
-                .experience(employee.getEmployeePositions().stream().map((experience->GetExperienceDTO.ExperienceDTO.builder()
+                .experience(employee.getEmployeePositions().stream().map((experience-> GetEmployeeExperienceDTO.ExperienceDTO.builder()
                         .workId(experience.getId())
                         .companyName(experience.getCompanyName())
                         .position(experience.getPosition())
@@ -24,17 +24,17 @@ public class EmployeeMapper {
 
     }
 
-    public GetEducationDTO entityToEducationDTO(Employee employee) {
+    public GetEmployeeEducationDTO entityToEducationDTO(Employee employee) {
 
-        return GetEducationDTO.builder()
+        return GetEmployeeEducationDTO.builder()
                 .employeeId(employee.getId())
-                .educationList(employee.getEmployeeEducations().stream().map((education -> GetEducationDTO.EducationDTO.builder()
+                .educationList(employee.getEmployeeEducations().stream().map((education -> GetEmployeeEducationDTO.EducationDTO.builder()
                         .educationId(education.getId())
                         .major(education.getMajor().getName())
                         .degreeType(education.getDegreeType().getName())
                         .beginningDate(education.getBeginningDate())
                         .finishingDate(education.getFinishingDate())
-                        .university(GetEducationDTO.UniversityDTO.builder()
+                        .university(GetEmployeeEducationDTO.UniversityDTO.builder()
                                 .name(education.getUniversity().getName())
                                 .id(education.getUniversity().getId())
                                 .Location(education.getUniversity().getLocation())

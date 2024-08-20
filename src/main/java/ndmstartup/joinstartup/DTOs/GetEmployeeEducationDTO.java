@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
-public class GetEducationDTO {
+public class GetEmployeeEducationDTO {
 
     private Long employeeId;
     private List<EducationDTO> educationList;

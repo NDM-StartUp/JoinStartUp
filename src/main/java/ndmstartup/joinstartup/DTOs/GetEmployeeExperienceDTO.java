@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
-public class GetExperienceDTO {
+public class GetEmployeeExperienceDTO {
 
     private Long employeeId;
     private List<ExperienceDTO> experience;
