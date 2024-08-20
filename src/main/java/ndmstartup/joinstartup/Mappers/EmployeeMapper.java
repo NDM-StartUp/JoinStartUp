@@ -1,12 +1,17 @@
 package ndmstartup.joinstartup.Mappers;
 
+import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.GetEmployeeEducationDTO;
 import ndmstartup.joinstartup.DTOs.GetEmployeeExperienceDTO;
+import ndmstartup.joinstartup.DTOs.GetEmployeeSkillsDTO;
 import ndmstartup.joinstartup.Models.Employee;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeMapper {
+
+    private final SkillMapper skillMapper;
 
     public GetEmployeeExperienceDTO entityToExperienceDTO(Employee employee) {
 
@@ -41,6 +46,12 @@ public class EmployeeMapper {
                                 .build()).build())).toList())
                 .build();
 
+    }
+    public GetEmployeeSkillsDTO entityToSkillsDTO(Employee employee){
+        return GetEmployeeSkillsDTO.builder()
+                .employeeId(employee.getId())
+                .skills(employee.getSkills().stream().map(skillMapper::entityToDTO).toList())
+                .build();
     }
 
 }

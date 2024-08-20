@@ -59,7 +59,6 @@ public class SupportTicketServiceImpl implements SupportTicketService {
 
         supportTicket.setTicketStatus(ticketStatusRepository.findByName(status)
                 .orElseThrow(() -> new NoSuchElementException("Status name does not exist")));
-
         supportTicket = supportTicketRepository.save(supportTicket);
 
         return supportTicketMapper.entityToDTO(supportTicket);
