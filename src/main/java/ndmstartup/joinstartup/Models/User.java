@@ -2,9 +2,7 @@ package ndmstartup.joinstartup.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +11,8 @@ import java.util.List;
 @Entity
 @Table(name = "Users")
 @Getter
+@Builder
+@AllArgsConstructor
 @Setter
 @NoArgsConstructor
 public class User {

@@ -1,10 +1,11 @@
 package ndmstartup.joinstartup.Repositories;
 
-import ndmstartup.joinstartup.Models.Employee;
+import ndmstartup.joinstartup.Models.Employer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-	boolean existsEmployeeById(Long id);
+public interface EmployerRepository extends JpaRepository<Employer, Long> {
+
+	boolean existsEmployerById(Long id);
 }

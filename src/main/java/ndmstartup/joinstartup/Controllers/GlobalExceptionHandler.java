@@ -1,5 +1,6 @@
 package ndmstartup.joinstartup.Controllers;
 
+import ndmstartup.joinstartup.Exceptions.UserChangeTypeConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,6 +14,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNoSuchElementException(Exception e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(UserChangeTypeConflictException.class)
+    public ResponseEntity<String> handleUserChangeTypeConflictException (Exception e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 
 }
