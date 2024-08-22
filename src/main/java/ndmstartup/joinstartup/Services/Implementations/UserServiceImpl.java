@@ -1,20 +1,12 @@
 package ndmstartup.joinstartup.Services.Implementations;
 
 import lombok.RequiredArgsConstructor;
-import ndmstartup.joinstartup.DTOs.GetSupportTicketDTO;
-import ndmstartup.joinstartup.DTOs.PostSupportTicketDTO;
-import ndmstartup.joinstartup.DTOs.PostUserDTO;
+import ndmstartup.joinstartup.DTOs.*;
 import ndmstartup.joinstartup.Exceptions.UserChangeTypeConflictException;
 import ndmstartup.joinstartup.Mappers.SupportTicketMapper;
 import ndmstartup.joinstartup.Mappers.UserMapper;
-import ndmstartup.joinstartup.Models.Employee;
-import ndmstartup.joinstartup.Models.Employer;
-import ndmstartup.joinstartup.Models.SupportTicket;
-import ndmstartup.joinstartup.Models.User;
-import ndmstartup.joinstartup.Repositories.EmployeeRepository;
-import ndmstartup.joinstartup.Repositories.EmployerRepository;
-import ndmstartup.joinstartup.Repositories.SupportTicketRepository;
-import ndmstartup.joinstartup.Repositories.UserRepository;
+import ndmstartup.joinstartup.Models.*;
+import ndmstartup.joinstartup.Repositories.*;
 import ndmstartup.joinstartup.Services.Interfaces.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;
     private final EmployerRepository employerRepository;
+    private final LoginHistoryRepository loginHistoryRepository;
     private final UserMapper userMapper;
     private final SupportTicketRepository supportTicketRepository;
     private final SupportTicketMapper supportTicketMapper;
@@ -77,6 +70,60 @@ public class UserServiceImpl implements UserService {
             employee.setUser(user);
             employeeRepository.save(employee);
         }
+    }
+
+    @Override
+    public void updateUserData(Long userId, PostUserDTO postUserDTO) {
+        User existingUser = userRepository.findById(userId).orElseThrow(
+                () -> new NoSuchElementException("There is no user of id - " + userId)
+        );
+
+        existingUser.setFirstName(postUserDTO.getFirstName());
+        existingUser.setLastName(postUserDTO.getLastName());
+        existingUser.setEmail(postUserDTO.getEmail());
+        existingUser.setPhone(postUserDTO.getPhone());
+        existingUser.setDescription(postUserDTO.getDescription());
+
+        userRepository.save(existingUser);
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        User existingUser = userRepository.findById(userId).orElseThrow(
+                () -> new NoSuchElementException("There is no user of id - " + userId)
+        );
+
+        userRepository.delete(existingUser);
+    }
+
+    @Override
+    public GetUserTypesDTO getUserTypes(Long userId) {
+        GetUserTypesDTO userTypes = new GetUserTypesDTO();
+
+        userTypes.setEmployee(employeeRepository.existsEmployeeById(userId));
+        userTypes.setEmployer(employerRepository.existsEmployerById(userId));
+
+        return userTypes;
+    }
+
+    @Override
+    public GetUserInfoDTO getUserInfo(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NoSuchElementException("There is no user of id - " + userId)
+        );
+
+		return userMapper.EntityToInfoDTO(user);
+    }
+
+    @Override
+    public List<GetLoginHistoryDTO> getLoginHistoryByUserId(Long userId) {
+        List<LoginHistory> loginHistory = loginHistoryRepository.findLoginHistoriesByUserId(userId);
+
+        return loginHistory.stream().map(
+                rec -> GetLoginHistoryDTO.builder()
+                        .loginDate(rec.getDate())
+                        .build()
+        ).toList();
     }
 
     @Override

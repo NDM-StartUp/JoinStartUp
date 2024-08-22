@@ -1,10 +1,7 @@
 package ndmstartup.joinstartup.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostUserDTO {
 
+	@NotNull
 	private Long id;
 
 	@NotBlank(message = "First name is mandatory")

@@ -1,9 +1,7 @@
 package ndmstartup.joinstartup.Controllers;
 
 import lombok.RequiredArgsConstructor;
-import ndmstartup.joinstartup.DTOs.GetSupportTicketDTO;
-import ndmstartup.joinstartup.DTOs.PostSupportTicketDTO;
-import ndmstartup.joinstartup.DTOs.PostUserDTO;
+import ndmstartup.joinstartup.DTOs.*;
 import ndmstartup.joinstartup.Services.Interfaces.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +33,44 @@ public class UserController {
         userService.addUserRole(userId, addEmployerRole);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{userId}/update")
+    public ResponseEntity<Void> updateUserData (
+            @PathVariable Long userId,
+            @RequestBody PostUserDTO postUserDTO
+    ) {
+        userService.updateUserData(userId, postUserDTO);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{userId}/delete")
+    public ResponseEntity<Void> deleteUser ( @PathVariable Long userId) {
+        userService.deleteUser(userId);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{userId}/user-types")
+    public ResponseEntity<GetUserTypesDTO> getUserTypes (@PathVariable Long userId) {
+        GetUserTypesDTO userTypes = userService.getUserTypes(userId);
+
+        return ResponseEntity.ok(userTypes);
+    }
+
+    @GetMapping("/{userId}/user-info")
+    public ResponseEntity<GetUserInfoDTO> getUserInfo (@PathVariable Long userId) {
+        GetUserInfoDTO getUserInfoDTO = userService.getUserInfo(userId);
+
+        return ResponseEntity.ok(getUserInfoDTO);
+    }
+
+    @GetMapping("/{userId}/login-history")
+    public ResponseEntity<List<GetLoginHistoryDTO>> getLoginHistory (@PathVariable Long userId) {
+        List<GetLoginHistoryDTO> loginHistory = userService.getLoginHistoryByUserId(userId);
+
+        return ResponseEntity.ok(loginHistory);
     }
 
     @GetMapping("/{userId}/ticket")

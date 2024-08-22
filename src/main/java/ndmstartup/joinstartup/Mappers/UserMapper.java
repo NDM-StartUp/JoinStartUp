@@ -1,6 +1,7 @@
 package ndmstartup.joinstartup.Mappers;
 
 import lombok.RequiredArgsConstructor;
+import ndmstartup.joinstartup.DTOs.GetUserInfoDTO;
 import ndmstartup.joinstartup.DTOs.PostUserDTO;
 import ndmstartup.joinstartup.Models.User;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,16 @@ public class UserMapper {
 				.email(postUserDTO.getEmail())
 				.phone(postUserDTO.getPhone())
 				.description(postUserDTO.getDescription())
+				.build();
+	}
+
+	public GetUserInfoDTO EntityToInfoDTO (User user) {
+		return GetUserInfoDTO.builder()
+				.firstName(user.getFirstName())
+				.lastName(user.getLastName())
+				.email(user.getEmail())
+				.phone(user.getPhone())
+				.description(user.getDescription())
 				.build();
 	}
 
