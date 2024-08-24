@@ -45,7 +45,7 @@ public class StartUp {
     @Column(name = "Location", nullable = false)
     @NotBlank(message = "Location is mandatory")
     @Size(max = 100)
-    private String Location;
+    private String location;
 
     @Column(name = "Is_Paid", nullable = false)
     @NotBlank(message = "Is it paid or not is mandatory")
