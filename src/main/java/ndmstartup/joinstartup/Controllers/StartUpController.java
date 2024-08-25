@@ -1,7 +1,6 @@
 package ndmstartup.joinstartup.Controllers;
 
 import lombok.RequiredArgsConstructor;
-//import ndmstartup.joinstartup.DTOs.GetStartUpCompanyNameEmployeeDTO;
 import ndmstartup.joinstartup.DTOs.*;
 import ndmstartup.joinstartup.Services.Interfaces.ApplicationService;
 import ndmstartup.joinstartup.Services.Interfaces.StartUpService;
@@ -9,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +30,7 @@ public class StartUpController {
 		return ResponseEntity.ok(startUp);
 	}
 
-	@GetMapping("/id{startUpId}/employees")
+	@GetMapping("/{startUpId}/employees")
 	public ResponseEntity<GetStartUpIdEmployeeDTO> getAllEmployeesByStartUpId(@PathVariable Long startUpId){
 		GetStartUpIdEmployeeDTO startUp = startUpService.getEmployeesByStartUpId(startUpId);
 		return ResponseEntity.ok(startUp);
@@ -56,13 +54,14 @@ public class StartUpController {
 		return ResponseEntity.ok(startUp);
 	}
 
-	@GetMapping("/applications")
+	@GetMapping("/{startUpId}/applications")
 	public ResponseEntity<List<GetApplicationDTO>> getApplications(
-			@RequestParam(required = false) String startupStatus,
+			@RequestParam(required = false) String applicationStatus,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date  startDate,
-			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate, @PathVariable Long startUpId) {
 
-		List<GetApplicationDTO> applications = applicationService.getApplicationsByCriteria(startupStatus, startDate, endDate);
+		List<GetApplicationDTO> applications = applicationService.getApplicationsByStartUpAndCriteria(applicationStatus, startDate, endDate, startUpId);
 		return ResponseEntity.ok(applications);
 	}
+
 }

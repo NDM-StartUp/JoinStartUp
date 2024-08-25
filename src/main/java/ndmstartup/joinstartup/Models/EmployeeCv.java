@@ -18,12 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 public class EmployeeCv {
 	@Id
-	@Column(name = "Employee_Id")
+	@Column(name = "EmployeeCv_Id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
-	@MapsId
 	@JoinColumn(name = "Employee_Id", nullable = false)
 	private Employee employee;
 

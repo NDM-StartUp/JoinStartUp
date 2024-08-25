@@ -17,4 +17,6 @@ public interface EmployeeService {
     void addSkillToEmployee(Long employeeId, Long skillId);
 
     GetEmployeeApplicationsDTO getApplicationsByEmployeeId(Long employeeId);
+
+    void deleteApplicationByApplicationId(Long applicationId);
 }
