@@ -1,5 +1,6 @@
 package ndmstartup.joinstartup.Controllers;
 
+import ndmstartup.joinstartup.Exceptions.StatusAlreadyExistsConflictException;
 import ndmstartup.joinstartup.Exceptions.UserChangeTypeConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserChangeTypeConflictException.class)
     public ResponseEntity<String> handleUserChangeTypeConflictException (Exception e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+    }
+
+    @ExceptionHandler(StatusAlreadyExistsConflictException.class)
+    public ResponseEntity<String> handleStatusAlreadyExistsConflictException (Exception e) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }
 

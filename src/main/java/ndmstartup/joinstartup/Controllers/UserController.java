@@ -73,6 +73,23 @@ public class UserController {
         return ResponseEntity.ok(loginHistory);
     }
 
+    @PostMapping("/{userId}/add-status/{statusId}")
+    public ResponseEntity<Void> addStatusForUser (
+            @PathVariable Long userId,
+            @PathVariable Long statusId
+    ) {
+        userService.addStatusForUserById(userId, statusId);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{userId}/statuses")
+    public ResponseEntity<List<GetUserStatusesDTO>> getUserStatuses (@PathVariable Long userId) {
+        List<GetUserStatusesDTO> userStatuses = userService.getUserStatusesById(userId);
+
+        return ResponseEntity.ok(userStatuses);
+    }
+
     @GetMapping("/{userId}/ticket")
     public ResponseEntity<List<GetSupportTicketDTO>> getSupportTicketByUserId(@PathVariable Long userId) {
         List<GetSupportTicketDTO> supportTicket = userService.getAllSupportTicketsByUserId(userId);

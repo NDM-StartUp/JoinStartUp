@@ -19,6 +19,10 @@ public interface UserService {
 
     List<GetLoginHistoryDTO> getLoginHistoryByUserId (Long userId);
 
+    void addStatusForUserById (Long userId, Long statusId);
+
+    List<GetUserStatusesDTO> getUserStatusesById (Long userId);
+
     GetSupportTicketDTO addSupportTicket(Long userId, PostSupportTicketDTO supportTicketDTO);
 
     List<GetSupportTicketDTO> getAllSupportTicketsByUserId(Long userId);

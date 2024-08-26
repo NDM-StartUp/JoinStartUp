@@ -2,6 +2,7 @@ package ndmstartup.joinstartup.Services.Implementations;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.*;
+import ndmstartup.joinstartup.Exceptions.StatusAlreadyExistsConflictException;
 import ndmstartup.joinstartup.Exceptions.UserChangeTypeConflictException;
 import ndmstartup.joinstartup.Mappers.SupportTicketMapper;
 import ndmstartup.joinstartup.Mappers.UserMapper;
@@ -16,6 +17,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final EmployeeRepository employeeRepository;
     private final EmployerRepository employerRepository;
     private final LoginHistoryRepository loginHistoryRepository;
+    private final StatusRepository statusRepository;
     private final UserMapper userMapper;
     private final SupportTicketRepository supportTicketRepository;
     private final SupportTicketMapper supportTicketMapper;
@@ -123,7 +126,37 @@ public class UserServiceImpl implements UserService {
                 rec -> GetLoginHistoryDTO.builder()
                         .loginDate(rec.getDate())
                         .build()
-        ).toList();
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public void addStatusForUserById(Long userId, Long statusId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NoSuchElementException("There is no user with id - " + userId)
+        );
+        Status status = statusRepository.findById(statusId).orElseThrow(
+                () -> new NoSuchElementException("There is no status with id - " + statusId)
+        );
+
+        if (!user.getStatuses().contains(status)) {
+            user.getStatuses().add(status);
+            userRepository.save(user);
+        } else {
+            throw new StatusAlreadyExistsConflictException(
+                    "There is already status with id - " + statusId
+                            + ", assigned to user with id - " + userId
+            );
+        }
+    }
+
+    @Override
+    public List<GetUserStatusesDTO> getUserStatusesById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NoSuchElementException("There is no user with id - " + userId)
+        );
+        return user.getStatuses().stream()
+                .map(s -> new GetUserStatusesDTO(s.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
