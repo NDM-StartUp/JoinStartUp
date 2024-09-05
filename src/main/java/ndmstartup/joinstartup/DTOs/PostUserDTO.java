@@ -14,9 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostUserDTO {
 
-	@NotNull
-	private Long id;
-
 	@NotBlank(message = "First name is mandatory")
 	@Size(max = 50)
 	private String firstName;

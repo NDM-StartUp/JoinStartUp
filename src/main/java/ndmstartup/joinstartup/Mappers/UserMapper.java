@@ -12,7 +12,6 @@ public class UserMapper {
 
 	public User DTOToEntity (PostUserDTO postUserDTO) {
 		return User.builder()
-				.id(postUserDTO.getId())
 				.firstName(postUserDTO.getFirstName())
 				.lastName(postUserDTO.getLastName())
 				.email(postUserDTO.getEmail())
