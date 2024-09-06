@@ -1,9 +1,6 @@
 package ndmstartup.joinstartup.Services.Interfaces;
 
-import ndmstartup.joinstartup.DTOs.GetEmployeeApplicationsDTO;
-import ndmstartup.joinstartup.DTOs.GetEmployeeEducationDTO;
-import ndmstartup.joinstartup.DTOs.GetEmployeeExperienceDTO;
-import ndmstartup.joinstartup.DTOs.GetEmployeeSkillsDTO;
+import ndmstartup.joinstartup.DTOs.*;
 
 public interface EmployeeService {
     GetEmployeeExperienceDTO getExperienceByEmployeeId(Long employeeId);
@@ -19,4 +16,8 @@ public interface EmployeeService {
     GetEmployeeApplicationsDTO getApplicationsByEmployeeId(Long employeeId);
 
     void deleteApplicationByApplicationId(Long applicationId);
+
+    void addExperienceByEmployeeId(Long employeeId, PostEmployeeExperienceDTO experience);
+
+    void addEducationByEmployeeId(Long employeeId, PostEmployeeEducationDTO education);
 }

@@ -2,9 +2,7 @@ package ndmstartup.joinstartup.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -12,7 +10,9 @@ import java.util.Date;
 @Table(name = "Employee_Education")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeEducation {
 	@Id
 	@Column(name = "Id")

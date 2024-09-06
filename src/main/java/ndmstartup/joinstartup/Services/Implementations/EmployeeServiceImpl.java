@@ -1,19 +1,12 @@
 package ndmstartup.joinstartup.Services.Implementations;
 
 import lombok.RequiredArgsConstructor;
-import ndmstartup.joinstartup.DTOs.GetEmployeeApplicationsDTO;
-import ndmstartup.joinstartup.DTOs.GetEmployeeEducationDTO;
-import ndmstartup.joinstartup.DTOs.GetEmployeeExperienceDTO;
-import ndmstartup.joinstartup.DTOs.GetEmployeeSkillsDTO;
+import ndmstartup.joinstartup.DTOs.*;
 import ndmstartup.joinstartup.Mappers.ApplicationMapper;
+import ndmstartup.joinstartup.Mappers.EducationMapper;
 import ndmstartup.joinstartup.Mappers.EmployeeMapper;
-import ndmstartup.joinstartup.Models.ApplicationCv;
-import ndmstartup.joinstartup.Models.Employee;
-import ndmstartup.joinstartup.Models.Skill;
-import ndmstartup.joinstartup.Repositories.ApplicationRepository;
-import ndmstartup.joinstartup.Repositories.EmployeeCvRepository;
-import ndmstartup.joinstartup.Repositories.EmployeeRepository;
-import ndmstartup.joinstartup.Repositories.SkillRepository;
+import ndmstartup.joinstartup.Models.*;
+import ndmstartup.joinstartup.Repositories.*;
 import ndmstartup.joinstartup.Services.Interfaces.EmployeeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +24,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final SkillRepository skillRepository;
     private final EmployeeCvRepository employeeCvRepository;
     private final ApplicationRepository applicationRepository;
+    private final WorkEmployeeRepository workEmployeeRepository;
+    private final EmployeeEducationRepository employeeEducationRepository;
+    private final EducationMapper educationMapper;
+
 
     @Override
     public GetEmployeeExperienceDTO getExperienceByEmployeeId(Long employeeId) {
@@ -91,6 +88,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteApplicationByApplicationId(Long applicationId) {
         applicationRepository.findById(applicationId).orElseThrow(() -> new NoSuchElementException("Application not found"));
         applicationRepository.deleteById(applicationId);
+    }
+
+    @Override
+    public void addExperienceByEmployeeId(Long employeeId, PostEmployeeExperienceDTO experience) {
+        WorkEmployee workEmployee = WorkEmployee.builder()
+                .employee(employeeRepository.findById(employeeId).orElseThrow(()->new NoSuchElementException("Employee not found")))
+                .companyName(experience.getCompanyName())
+                .position(experience.getPosition())
+                .startingDate(experience.getStartingDate())
+                .endingDate(experience.getEndingDate())
+                .build();
+
+        workEmployeeRepository.save(workEmployee);
+    }
+
+    @Override
+    public void addEducationByEmployeeId(Long employeeId, PostEmployeeEducationDTO education) {
+        EmployeeEducation employeeEducation = educationMapper.postDtoToEntity(education);
+        employeeEducationRepository.save(employeeEducation);
     }
 
 
