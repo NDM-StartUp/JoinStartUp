@@ -5,15 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
-public class GetEmployeeEducationDTO {
-
-    private Long employeeId;
-    private List<EducationDTO> educationList;
-
+public class UniversityDTO {
+    private Long id;
+    private String name;
+    private String Location;
 }
