@@ -2,6 +2,7 @@ package ndmstartup.joinstartup.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +30,8 @@ public class StartUpStatus {
     @JoinColumn(name="Progress_Status_Id", nullable=false)
     private ProgressStatus progressStatus;
 
-    @Column(name = "Date")
-    @NotBlank(message = "Date is mandatory")
+    @Column(name = "Date", nullable = false)
+    @NotNull(message = "Date is mandatory")
     private LocalDate date;
 
 }

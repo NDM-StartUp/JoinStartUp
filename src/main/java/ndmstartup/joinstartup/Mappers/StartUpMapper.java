@@ -4,11 +4,23 @@ import lombok.RequiredArgsConstructor;
 //import ndmstartup.joinstartup.DTOs.GetStartUpCompanyNameEmployeeDTO;
 import ndmstartup.joinstartup.DTOs.*;
 import ndmstartup.joinstartup.Models.StartUp;
+import ndmstartup.joinstartup.Models.StartUpStatus;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class StartUpMapper {
+
+	public StartUp DTOToEntity(PostStartUpDTO postStartUpDTO){
+		return StartUp.builder()
+				.name(postStartUpDTO.getName())
+				.companyName(postStartUpDTO.getCompanyName())
+				.description(postStartUpDTO.getDescription())
+				.requirements(postStartUpDTO.getRequirements())
+				.location(postStartUpDTO.getLocation())
+				.isPaid(postStartUpDTO.isPaid())
+				.build();
+	}
 	public GetStartUpDTO entityToDTO(StartUp startUp){
 		return GetStartUpDTO.builder()
 				.id(startUp.getId())
@@ -36,7 +48,14 @@ public class StartUpMapper {
 				.build();
 	}
 
-	public GetStartUpCompanyNameEmployeeDTO entityToStartUpCompanyNameEmployeeDTO(StartUp startUp){
+	public GetStartUpStatusDTO entityToStartUpStatusDTO(StartUpStatus startUpStatus) {
+		return GetStartUpStatusDTO.builder()
+				.statusName(startUpStatus.getProgressStatus().getName())
+				.date(startUpStatus.getDate())
+				.build();
+	}
+
+/*	public GetStartUpCompanyNameEmployeeDTO entityToStartUpCompanyNameEmployeeDTO(StartUp startUp){
 		return GetStartUpCompanyNameEmployeeDTO.builder()
 				.startUpId(startUp.getId())
 				.companyName(startUp.getCompanyName())
@@ -79,5 +98,5 @@ public class StartUpMapper {
 								.phone(employee.getEmployee().getUser().getPhone())
 								.build()).build()).toList())
 				.build();
-	}
+	}*/
 }

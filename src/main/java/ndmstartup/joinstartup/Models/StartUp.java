@@ -1,8 +1,10 @@
 package ndmstartup.joinstartup.Models;
 
+import lombok.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +15,10 @@ import java.util.List;
 @Entity
 @Table(name = "StartUp")
 @Getter
+@Builder
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class StartUp {
 
     @Id
@@ -48,7 +52,6 @@ public class StartUp {
     private String location;
 
     @Column(name = "Is_Paid", nullable = false)
-    @NotBlank(message = "Is it paid or not is mandatory")
     private boolean isPaid;
 
     @OneToMany(mappedBy = "startUp", cascade = CascadeType.ALL)
