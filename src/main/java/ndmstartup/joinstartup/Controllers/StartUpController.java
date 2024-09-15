@@ -3,6 +3,7 @@ package ndmstartup.joinstartup.Controllers;
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.*;
 import ndmstartup.joinstartup.Repositories.StartUpStatusRepository;
+import ndmstartup.joinstartup.Services.Interfaces.ApplicationCvService;
 import ndmstartup.joinstartup.Services.Interfaces.ApplicationService;
 import ndmstartup.joinstartup.Services.Interfaces.StartUpService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +20,7 @@ public class StartUpController {
 
 	private final StartUpService startUpService;
 	private final ApplicationService applicationService;
+	private final ApplicationCvService applicationCvService;
 
 	@GetMapping("/all")
 	public ResponseEntity<List<GetStartUpDTO>> getAllStartUps(){
@@ -98,6 +99,15 @@ public class StartUpController {
 	public ResponseEntity<List<GetStartUpStatusDTO>> getAllStartUpProgressStatuses(@PathVariable Long startUpId) {
 		List<GetStartUpStatusDTO> statuses = startUpService.getAllStartUpProgressStatuses(startUpId);
 		return ResponseEntity.ok(statuses);
+	}
+
+	@PutMapping("/application/{applicationCvId}/status")
+	public ResponseEntity<Void> updateApplicationStatus(
+			@PathVariable Long applicationCvId,
+			@RequestParam String applicationStatusName) {
+
+		applicationCvService.updateApplicationStatus(applicationCvId, applicationStatusName);
+		return ResponseEntity.noContent().build();
 	}
 
 

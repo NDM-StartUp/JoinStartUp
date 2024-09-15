@@ -3,7 +3,7 @@ package ndmstartup.joinstartup.Mappers;
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.EducationDTO;
 import ndmstartup.joinstartup.DTOs.PostEmployeeEducationDTO;
-import ndmstartup.joinstartup.DTOs.UniversityDTO;
+import ndmstartup.joinstartup.DTOs.GetUniversityDTO;
 import ndmstartup.joinstartup.Models.EmployeeEducation;
 import ndmstartup.joinstartup.Repositories.DegreeTypeRepository;
 import ndmstartup.joinstartup.Repositories.MajorRepository;
@@ -41,10 +41,10 @@ public class EducationMapper {
                 .degreeType(education.getDegreeType().getName())
                 .beginningDate(education.getBeginningDate())
                 .finishingDate(education.getFinishingDate())
-                .university(UniversityDTO.builder()
+                .university(GetUniversityDTO.builder()
                         .name(education.getUniversity().getName())
                         .id(education.getUniversity().getId())
-                        .Location(education.getUniversity().getLocation())
+                        .location(education.getUniversity().getLocation())
                         .build()).build();
     }
 

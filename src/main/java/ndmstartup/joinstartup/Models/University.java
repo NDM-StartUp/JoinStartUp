@@ -3,9 +3,7 @@ package ndmstartup.joinstartup.Models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class University {
 
     @Id
@@ -30,7 +30,7 @@ public class University {
     @Column(name = "Location", nullable = false)
     @NotBlank(message = "Location is mandatory")
     @Size(max = 100)
-    private String Location;
+    private String location;
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL)
     private List<EmployeeEducation> employeeEducations = new ArrayList<>();
