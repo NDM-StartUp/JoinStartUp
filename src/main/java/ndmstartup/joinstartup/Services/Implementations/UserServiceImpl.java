@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void addUserRole (Long userId, boolean addEmployerRole) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new NoSuchElementException("There is no user with id - " + userId)
+                () -> new NoSuchElementException("User not found with id " + userId)
         );
 
         if (addEmployerRole) {
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserData(Long userId, PostUserDTO postUserDTO) {
         User existingUser = userRepository.findById(userId).orElseThrow(
-                () -> new NoSuchElementException("There is no user of id - " + userId)
+                () -> new NoSuchElementException("User not found with id " + userId)
         );
 
         existingUser.setFirstName(postUserDTO.getFirstName());
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long userId) {
         User existingUser = userRepository.findById(userId).orElseThrow(
-                () -> new NoSuchElementException("There is no user of id - " + userId)
+                () -> new NoSuchElementException("User not found with id " + userId)
         );
 
         userRepository.delete(existingUser);
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public GetUserInfoDTO getUserInfo(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new NoSuchElementException("There is no user of id - " + userId)
+                () -> new NoSuchElementException("User not found with id " + userId)
         );
 
 		return userMapper.EntityToInfoDTO(user);
@@ -132,10 +132,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addStatusForUserById(Long userId, Long statusId) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new NoSuchElementException("There is no user with id - " + userId)
+                () -> new NoSuchElementException("User not found with id " + userId)
         );
         Status status = statusRepository.findById(statusId).orElseThrow(
-                () -> new NoSuchElementException("There is no status with id - " + statusId)
+                () -> new NoSuchElementException("Status not found with id" + statusId)
         );
 
         if (!user.getStatuses().contains(status)) {
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<GetUserStatusesDTO> getUserStatusesById(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new NoSuchElementException("There is no user with id - " + userId)
+                () -> new NoSuchElementException("User not found with id " + userId)
         );
         return user.getStatuses().stream()
                 .map(s -> new GetUserStatusesDTO(s.getName()))

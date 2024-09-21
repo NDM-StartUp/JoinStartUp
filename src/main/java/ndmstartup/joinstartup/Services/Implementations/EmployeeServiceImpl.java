@@ -31,29 +31,29 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public GetEmployeeExperienceDTO getExperienceByEmployeeId(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found"));
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
 
         return employeeMapper.entityToExperienceDTO(employee);
     }
 
     @Override
     public GetEmployeeEducationDTO getEducationByEmployeeId(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found"));
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not foundwith id" + employeeId));
 
         return employeeMapper.entityToEducationDTO(employee);
     }
 
     @Override
     public GetEmployeeSkillsDTO getSkillsByEmployeeId(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found"));
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
 
         return employeeMapper.entityToSkillsDTO(employee);
     }
 
     @Override
     public void deleteEmployeeSkill(Long employeeId, Long skillId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found"));
-        Skill skill = skillRepository.findById(skillId).orElseThrow(() -> new NoSuchElementException("Skill not found"));
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
+        Skill skill = skillRepository.findById(skillId).orElseThrow(() -> new NoSuchElementException("Skill not found with id" + skillId));
         if (employee.getSkills().remove(skill))
             employeeRepository.save(employee);
         else
@@ -63,15 +63,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public void addSkillToEmployee(Long employeeId, Long skillId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found"));
-        Skill skill = skillRepository.findById(skillId).orElseThrow(() -> new NoSuchElementException("Skill not found"));
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
+        Skill skill = skillRepository.findById(skillId).orElseThrow(() -> new NoSuchElementException("Skill not found with id" + skillId));
         employee.getSkills().add(skill);
         employeeRepository.save(employee);
     }
 
     @Override
     public GetEmployeeApplicationsDTO getApplicationsByEmployeeId(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found"));
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
         List<ApplicationCv> applications = employeeCvRepository.findByEmployeeId(employeeId).stream()
                 .flatMap(employeeCv -> employeeCv.getCvs().stream())
                 .toList();
@@ -86,14 +86,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteApplicationByApplicationId(Long applicationId) {
-        applicationRepository.findById(applicationId).orElseThrow(() -> new NoSuchElementException("Application not found"));
+        applicationRepository.findById(applicationId).orElseThrow(() -> new NoSuchElementException("Application not found with id" + applicationId));
         applicationRepository.deleteById(applicationId);
     }
 
     @Override
     public void addExperienceByEmployeeId(Long employeeId, PostEmployeeExperienceDTO experience) {
         WorkEmployee workEmployee = WorkEmployee.builder()
-                .employee(employeeRepository.findById(employeeId).orElseThrow(()->new NoSuchElementException("Employee not found")))
+                .employee(employeeRepository.findById(employeeId).orElseThrow(()->new NoSuchElementException("Employee not found with id" + employeeId)))
                 .companyName(experience.getCompanyName())
                 .position(experience.getPosition())
                 .startingDate(experience.getStartingDate())

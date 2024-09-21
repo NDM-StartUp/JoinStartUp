@@ -24,7 +24,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     public GetSupportTicketDTO getSupportTicketByTicketId(Long ticketId) {
         SupportTicket supportTicket = supportTicketRepository
                 .findById(ticketId)
-                .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
+                .orElseThrow(() -> new NoSuchElementException("Support ticket not found with id" + ticketId));
 
         return supportTicketMapper.entityToDTO(supportTicket);
     }
@@ -47,7 +47,7 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     public void deleteSupportTicket(Long ticketId) {
 
         SupportTicket supportTicket = supportTicketRepository.findById(ticketId)
-                .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
+                .orElseThrow(() -> new NoSuchElementException("Support ticket not found with id" + ticketId));
 
         supportTicketRepository.delete(supportTicket);
     }
@@ -55,10 +55,10 @@ public class SupportTicketServiceImpl implements SupportTicketService {
     @Override
     public GetSupportTicketDTO changeSupportTicketStatus(Long ticketId, String status) {
         SupportTicket supportTicket = supportTicketRepository.findById(ticketId)
-                .orElseThrow(() -> new NoSuchElementException("Support ticket does not exist"));
+                .orElseThrow(() -> new NoSuchElementException("Support ticket not found with id" + ticketId));
 
         supportTicket.setTicketStatus(ticketStatusRepository.findByName(status)
-                .orElseThrow(() -> new NoSuchElementException("Status name does not exist")));
+                .orElseThrow(() -> new NoSuchElementException("Status name not found with name" + status)));
         supportTicket = supportTicketRepository.save(supportTicket);
 
         return supportTicketMapper.entityToDTO(supportTicket);

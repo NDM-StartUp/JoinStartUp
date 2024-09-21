@@ -27,7 +27,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public List<GetApplicationDTO> getApplicationsByStartUpAndCriteria(String applicationStatus, Date startDate, Date endDate, Long startUpId) {
-		StartUp startUp = startUpRepository.findById(startUpId).orElseThrow(() -> new NoSuchElementException("Start up not found"));
+		StartUp startUp = startUpRepository.findById(startUpId).orElseThrow(() -> new NoSuchElementException("Start up not found with id" + startUpId));
 
 		List<ApplicationCv> applications;
 
@@ -48,7 +48,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public List<GetApplicationDTO> getApplicationsByEmployeeAndCriteria(String applicationStatus, Date startDate, Date endDate, Long employeeId) {
-		Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found"));
+		Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
 
 		List<ApplicationCv> applications;
 

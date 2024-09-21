@@ -113,7 +113,7 @@ public class StartUpServiceImpl implements StartUpService {
 				.orElseThrow(() -> new NoSuchElementException("ProgressStatus not found with name: " + progressStatusName));
 
 		StartUpStatus existingStartUpStatus = startUpStatusRepository.findByStartUpId(startUpId)
-				.orElseThrow(() -> new NoSuchElementException("No status found for the StartUp"));
+				.orElseThrow(() -> new NoSuchElementException("No status found for the StartUp with id" + startUpId));
 
 
 		existingStartUpStatus.setProgressStatus(progressStatus);
