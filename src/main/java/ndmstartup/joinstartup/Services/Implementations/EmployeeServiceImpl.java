@@ -5,13 +5,15 @@ import ndmstartup.joinstartup.DTOs.*;
 import ndmstartup.joinstartup.Mappers.ApplicationMapper;
 import ndmstartup.joinstartup.Mappers.EducationMapper;
 import ndmstartup.joinstartup.Mappers.EmployeeMapper;
-import ndmstartup.joinstartup.Models.*;
+import ndmstartup.joinstartup.Models.Employee;
+import ndmstartup.joinstartup.Models.EmployeeEducation;
+import ndmstartup.joinstartup.Models.Skill;
+import ndmstartup.joinstartup.Models.WorkEmployee;
 import ndmstartup.joinstartup.Repositories.*;
 import ndmstartup.joinstartup.Services.Interfaces.EmployeeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -20,10 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
-    private final ApplicationMapper applicationMapper;
     private final SkillRepository skillRepository;
-    private final EmployeeCvRepository employeeCvRepository;
-    private final ApplicationRepository applicationRepository;
     private final WorkEmployeeRepository workEmployeeRepository;
     private final EmployeeEducationRepository employeeEducationRepository;
     private final EducationMapper educationMapper;
