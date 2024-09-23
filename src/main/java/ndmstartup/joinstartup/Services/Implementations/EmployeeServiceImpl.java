@@ -70,27 +70,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public GetEmployeeApplicationsDTO getApplicationsByEmployeeId(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
-        List<ApplicationCv> applications = employeeCvRepository.findByEmployeeId(employeeId).stream()
-                .flatMap(employeeCv -> employeeCv.getCvs().stream())
-                .toList();
-
-        return GetEmployeeApplicationsDTO.builder()
-                .employeeId(employeeId)
-                .applications(applications.stream()
-                        .map(applicationMapper::entityToDTO)
-                        .toList())
-                .build();
-    }
-
-    @Override
-    public void deleteApplicationByApplicationId(Long applicationId) {
-        applicationRepository.findById(applicationId).orElseThrow(() -> new NoSuchElementException("Application not found with id" + applicationId));
-        applicationRepository.deleteById(applicationId);
-    }
-
-    @Override
     public void addExperienceByEmployeeId(Long employeeId, PostEmployeeExperienceDTO experience) {
         WorkEmployee workEmployee = WorkEmployee.builder()
                 .employee(employeeRepository.findById(employeeId).orElseThrow(()->new NoSuchElementException("Employee not found with id" + employeeId)))

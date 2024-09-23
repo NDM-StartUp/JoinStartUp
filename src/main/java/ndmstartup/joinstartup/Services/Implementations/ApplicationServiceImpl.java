@@ -47,6 +47,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
+	public void deleteApplicationByApplicationId(Long applicationId) {
+		applicationRepository.findById(applicationId).orElseThrow(() -> new NoSuchElementException("Application not found with id" + applicationId));
+		applicationRepository.deleteById(applicationId);
+	}
+
+	@Override
 	public List<GetApplicationDTO> getApplicationsByEmployeeAndCriteria(String applicationStatus, Date startDate, Date endDate, Long employeeId) {
 		Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
 

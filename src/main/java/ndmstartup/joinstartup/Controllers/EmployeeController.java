@@ -72,22 +72,15 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/{employeeId}/applications")
-//    public ResponseEntity<GetEmployeeApplicationsDTO> getApplicationsByEmployeeId(@PathVariable Long employeeId){
-//        GetEmployeeApplicationsDTO applications = employeeService.getApplicationsByEmployeeId(employeeId);
-//
-//        return ResponseEntity.ok(applications);
-//    }
-
     @DeleteMapping("/application/{applicationId}")
     public ResponseEntity<Void> deleteApplicationByApplicationId(@PathVariable Long applicationId) {
-        employeeService.deleteApplicationByApplicationId(applicationId);
+        applicationService.deleteApplicationByApplicationId(applicationId);
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{employeeId}/applications")
-    public ResponseEntity<List<GetApplicationDTO>> getApplications(
+    public ResponseEntity<List<GetApplicationDTO>> getApplicationsByEmployeeId(
             @RequestParam(required = false) String applicationStatus,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate, @PathVariable Long employeeId) {
@@ -98,7 +91,7 @@ public class EmployeeController {
 
     @GetMapping("/{employeeId}/positions")
     public ResponseEntity<GetEmployeePositionDTO> getPositionsAtStartUps(
-            @RequestParam(required = false) Long startUpId, Long employeeId) {
+            @RequestParam(required = false) Long startUpId, @PathVariable Long employeeId) {
         GetEmployeePositionDTO employeePositions = positionService.getEmployeePositions(startUpId, employeeId);
 
         return ResponseEntity.ok(employeePositions);

@@ -13,10 +13,6 @@ public interface EmployeeService {
 
     void addSkillToEmployee(Long employeeId, Long skillId);
 
-    GetEmployeeApplicationsDTO getApplicationsByEmployeeId(Long employeeId);
-
-    void deleteApplicationByApplicationId(Long applicationId);
-
     void addExperienceByEmployeeId(Long employeeId, PostEmployeeExperienceDTO experience);
 
     void addEducationByEmployeeId(Long employeeId, PostEmployeeEducationDTO education);

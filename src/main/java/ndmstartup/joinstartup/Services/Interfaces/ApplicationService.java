@@ -8,5 +8,7 @@ import java.util.List;
 public interface ApplicationService {
 	List<GetApplicationDTO> getApplicationsByStartUpAndCriteria(String applicationStatus, Date startDate, Date  endDate, Long startUpId);
 
+	void deleteApplicationByApplicationId(Long applicationId);
+
 	List<GetApplicationDTO> getApplicationsByEmployeeAndCriteria(String applicationStatus, Date startDate, Date endDate, Long employeeId);
 }
