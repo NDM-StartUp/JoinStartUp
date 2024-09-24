@@ -1,10 +1,11 @@
 package ndmstartup.joinstartup.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ndmstartup.joinstartup.Models.Position;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,8 @@ public class GetEmployeeExperienceDTO {
     @AllArgsConstructor
     public static class ExperienceDTO {
         private Long workId;
-        private Position position;
+        @ManyToOne(fetch = FetchType.LAZY)
+        private GetPositionDTO position;
         private String companyName;
         private Date startingDate;
         private Date endingDate;
