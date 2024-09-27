@@ -4,6 +4,7 @@ import ndmstartup.joinstartup.Models.AppUserDetails;
 
 public interface AuthService {
 
-    AppUserDetails register(AppUserDetails user);
+    void register(AppUserDetails user);
 
+    String verify(AppUserDetails user);
 }
