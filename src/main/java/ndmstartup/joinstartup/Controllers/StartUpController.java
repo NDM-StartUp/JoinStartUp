@@ -2,12 +2,12 @@ package ndmstartup.joinstartup.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.*;
-import ndmstartup.joinstartup.Repositories.StartUpStatusRepository;
 import ndmstartup.joinstartup.Services.Interfaces.ApplicationCvService;
 import ndmstartup.joinstartup.Services.Interfaces.ApplicationService;
 import ndmstartup.joinstartup.Services.Interfaces.StartUpService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -39,12 +39,15 @@ public class StartUpController {
 		return ResponseEntity.ok(startUps);
 	}
 
+	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id) || " +
+			"@startUpSecurityServiceImpl.isEmployeeOfStartUp(#startUpId, authentication.principal.id)")
 	@GetMapping("/{startUpId}/employees")
 	public ResponseEntity<GetStartUpIdEmployeeDTO> getAllEmployeesByStartUpId(@PathVariable Long startUpId){
 		GetStartUpIdEmployeeDTO startUp = startUpService.getEmployeesByStartUpId(startUpId);
 		return ResponseEntity.ok(startUp);
 	}
 
+	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id)")
 	@GetMapping("/{startUpId}/applications")
 	public ResponseEntity<List<GetApplicationDTO>> getApplications(
 			@RequestParam(required = false) String applicationStatus,
@@ -61,6 +64,7 @@ public class StartUpController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id)")
 	@PutMapping("/{startUpId}/update")
 	public ResponseEntity<Void> updateStartUp(@PathVariable Long startUpId,
 											  @RequestBody PostStartUpDTO postStartUpDTO){
@@ -68,6 +72,7 @@ public class StartUpController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id)")
 	@DeleteMapping("/{startUpId}/delete")
 	public ResponseEntity<Void> deleteStartUp(@PathVariable Long startUpId){
 		startUpService.deleteStartUp(startUpId);
@@ -80,6 +85,7 @@ public class StartUpController {
 		return ResponseEntity.ok(startUps);
 	}
 
+	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id)")
 	@PutMapping("/{startUpId}/status")
 	public ResponseEntity<Void> updateStartUpStatus(
 			@PathVariable Long startUpId,
@@ -89,6 +95,7 @@ public class StartUpController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id)")
 	@DeleteMapping("/{startUpId}/skills")
 	public ResponseEntity<Void> deleteStartUpSkills(@PathVariable Long startUpId) {
 		startUpService.deleteStartUpSkills(startUpId);
@@ -101,12 +108,14 @@ public class StartUpController {
 		return ResponseEntity.ok(statuses);
 	}
 
-	@PutMapping("/application/{applicationCvId}/status")
+
+	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id)")
+	@PutMapping("/{startUpId}/application/{applicationCvId}/status")
 	public ResponseEntity<Void> updateApplicationStatus(
 			@PathVariable Long applicationCvId,
-			@RequestParam String applicationStatusName) {
+			@RequestParam String applicationStatusName, @PathVariable Long startUpId) {
 
-		applicationCvService.updateApplicationStatus(applicationCvId, applicationStatusName);
+		applicationCvService.updateApplicationStatus(applicationCvId, applicationStatusName, startUpId);
 		return ResponseEntity.noContent().build();
 	}
 

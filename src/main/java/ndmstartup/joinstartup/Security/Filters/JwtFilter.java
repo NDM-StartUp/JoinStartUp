@@ -1,4 +1,4 @@
-package ndmstartup.joinstartup.Filters;
+package ndmstartup.joinstartup.Security.Filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -6,8 +6,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import ndmstartup.joinstartup.Services.Implementations.AppUserDetailsService;
-import ndmstartup.joinstartup.Services.Implementations.JWTService;
+import ndmstartup.joinstartup.Security.Services.Implementations.AppUserDetailsService;
+import ndmstartup.joinstartup.Security.Services.Implementations.JWTService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

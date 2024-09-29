@@ -1,10 +1,10 @@
-package ndmstartup.joinstartup.Services.Implementations;
+package ndmstartup.joinstartup.Security.Services.Implementations;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.Exceptions.UserWithThisEmailAlreadyExists;
 import ndmstartup.joinstartup.Models.AppUserDetails;
 import ndmstartup.joinstartup.Repositories.AppUserDetailsRepository;
-import ndmstartup.joinstartup.Services.Interfaces.AuthService;
+import ndmstartup.joinstartup.Security.Services.Interfaces.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

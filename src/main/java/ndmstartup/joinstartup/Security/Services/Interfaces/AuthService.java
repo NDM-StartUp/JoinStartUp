@@ -1,4 +1,4 @@
-package ndmstartup.joinstartup.Services.Interfaces;
+package ndmstartup.joinstartup.Security.Services.Interfaces;
 
 import ndmstartup.joinstartup.Models.AppUserDetails;
 

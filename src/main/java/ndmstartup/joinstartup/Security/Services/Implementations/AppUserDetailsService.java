@@ -1,7 +1,7 @@
-package ndmstartup.joinstartup.Services.Implementations;
+package ndmstartup.joinstartup.Security.Services.Implementations;
 
 import lombok.RequiredArgsConstructor;
-import ndmstartup.joinstartup.Abstractions.AppUserPrincipal;
+import ndmstartup.joinstartup.Security.Abstractions.AppUserPrincipal;
 import ndmstartup.joinstartup.Models.AppUserDetails;
 import ndmstartup.joinstartup.Repositories.AppUserDetailsRepository;
 import org.springframework.security.core.userdetails.UserDetails;

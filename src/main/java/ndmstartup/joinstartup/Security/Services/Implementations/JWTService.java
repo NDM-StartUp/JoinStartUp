@@ -1,4 +1,4 @@
-package ndmstartup.joinstartup.Services.Implementations;
+package ndmstartup.joinstartup.Security.Services.Implementations;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

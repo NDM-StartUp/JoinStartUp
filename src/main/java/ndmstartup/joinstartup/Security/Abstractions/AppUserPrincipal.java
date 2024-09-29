@@ -1,4 +1,4 @@
-package ndmstartup.joinstartup.Abstractions;
+package ndmstartup.joinstartup.Security.Abstractions;
 
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.Models.AppUserDetails;
@@ -11,7 +11,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class AppUserPrincipal implements UserDetails {
-
     private final AppUserDetails userDetails;
 
     @Override
@@ -27,5 +26,9 @@ public class AppUserPrincipal implements UserDetails {
     @Override
     public String getUsername() {
         return userDetails.getEmail();
+    }
+
+    public Long getId(){
+        return userDetails.getId();
     }
 }
