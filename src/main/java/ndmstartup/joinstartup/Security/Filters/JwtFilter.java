@@ -35,7 +35,6 @@ public class JwtFilter extends OncePerRequestFilter {
 //            jwtToken = authHeader.substring(7);
 //            email = jwtService.extractEmail(jwtToken);
 //        }
-
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("jwt")) {

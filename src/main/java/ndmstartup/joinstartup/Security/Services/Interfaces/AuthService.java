@@ -1,10 +1,10 @@
 package ndmstartup.joinstartup.Security.Services.Interfaces;
 
-import ndmstartup.joinstartup.Models.AppUserDetails;
+import ndmstartup.joinstartup.DTOs.AuthDTO;
 
 public interface AuthService {
 
-    void register(AppUserDetails user);
+    void register(AuthDTO user);
 
-    String verify(AppUserDetails user);
+    String verify(AuthDTO user);
 }

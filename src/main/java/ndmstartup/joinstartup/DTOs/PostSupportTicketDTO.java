@@ -1,6 +1,7 @@
 package ndmstartup.joinstartup.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostSupportTicketDTO {
 
-    private Long id;
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @NotBlank(message = "Description is mandatory")
     private String description;
 
 }
