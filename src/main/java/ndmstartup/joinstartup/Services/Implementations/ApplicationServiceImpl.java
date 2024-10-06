@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,8 +46,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public void deleteApplicationByApplicationId(Long applicationId) {
-		applicationRepository.findById(applicationId).orElseThrow(() -> new NoSuchElementException("Application not found with id" + applicationId));
+	public void deleteApplicationByApplicationId(Long applicationId, Long employeeId) {
+		ApplicationCv applicationCv = applicationRepository.findById(applicationId).orElseThrow(() -> new NoSuchElementException("Application not found with id" + applicationId));
+		if (!Objects.equals(applicationCv.getEmployeeCv().getEmployee().getId(), employeeId)) {
+			throw new NoSuchElementException("Employee with id " + employeeId + " does not belong to application with id " + applicationId);
+		}
 		applicationRepository.deleteById(applicationId);
 	}
 
