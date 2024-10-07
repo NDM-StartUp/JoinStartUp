@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.Models.ApplicationCv;
 import ndmstartup.joinstartup.Models.ApplicationStatus;
-import ndmstartup.joinstartup.Repositories.ApplicationCvRepository;
+import ndmstartup.joinstartup.Repositories.ApplicationRepository;
 import ndmstartup.joinstartup.Repositories.ApplicationStatusRepository;
 import ndmstartup.joinstartup.Services.Interfaces.ApplicationCvService;
 import org.springframework.stereotype.Service;
@@ -15,13 +15,13 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class ApplicationCvServiceImpl implements ApplicationCvService{
-	private final ApplicationCvRepository applicationCvRepository;
+	private final ApplicationRepository applicationRepository;
 	private final ApplicationStatusRepository applicationStatusRepository;
 
 	@Transactional
 	@Override
 	public void updateApplicationStatus(Long applicationCvId, String applicationStatusName, Long startUpId) {
-		ApplicationCv applicationCv = applicationCvRepository.findById(applicationCvId)
+		ApplicationCv applicationCv = applicationRepository.findById(applicationCvId)
 				.orElseThrow(() -> new NoSuchElementException("ApplicationCv not found with id: " + applicationCvId));
 
 		ApplicationStatus applicationStatus = applicationStatusRepository.findByName(applicationStatusName)
@@ -32,6 +32,6 @@ public class ApplicationCvServiceImpl implements ApplicationCvService{
 		}
 		applicationCv.setStatus(applicationStatus);
 
-		applicationCvRepository.save(applicationCv);
+		applicationRepository.save(applicationCv);
 	}
 }

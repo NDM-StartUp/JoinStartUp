@@ -30,7 +30,7 @@ public class PositionServiceImpl implements PositionService {
 	}
 	@Override
 	public GetEmployeePositionDTO getEmployeePositions(Long startUpId, Long employeeId) {
-		StartUpEmployee startUpEmployee = startUpId==null ?
+		StartUpEmployee startUpEmployee = startUpId!=null ?
 				startUpEmployeeRepository.findByStartUpIdAndEmployeeId(startUpId, employeeId)
 				:startUpEmployeeRepository.findByEmployeeId(employeeId);
 		return employeeMapper.entityToPositionDTO(startUpEmployee);
