@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Startup_Employee")
@@ -34,9 +34,9 @@ public class StartUpEmployee {
 	@Column(name = "Starting_Date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull
-	private Date startingDate;
+	private LocalDate startingDate;
 
 	@Column(name = "Ending_Date")
 	@Temporal(TemporalType.DATE)
-	private Date endingDate;
+	private LocalDate endingDate;
 }

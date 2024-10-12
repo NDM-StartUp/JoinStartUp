@@ -21,7 +21,7 @@ public interface StartUpService {
 	void updateStartUpStatus(Long startUpId, String progressStatusName);
 	void deleteStartUpSkills(Long startUpId);
 
-	public List<GetStartUpStatusDTO> getAllStartUpProgressStatuses(Long startUpId);
+	List<GetStartUpStatusDTO> getAllStartUpProgressStatuses(Long startUpId);
 
 
 /*	GetStartUpCompanyNameEmployeeDTO getEmployeesByStartUpCompanyName(String companyName);

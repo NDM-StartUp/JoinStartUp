@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -28,8 +28,8 @@ public class GetEmployeeExperienceDTO {
         @ManyToOne(fetch = FetchType.LAZY)
         private GetPositionDTO position;
         private String companyName;
-        private Date startingDate;
-        private Date endingDate;
+        private LocalDate startingDate;
+        private LocalDate endingDate;
     }
 
 }

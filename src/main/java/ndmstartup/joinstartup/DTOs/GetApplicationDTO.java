@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ndmstartup.joinstartup.Models.ApplicationStatus;
-import ndmstartup.joinstartup.Models.Employee;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 //    For application there should be cv. Should be implemented in the future
 @Data
 @Builder
@@ -15,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class GetApplicationDTO {
     private Long id;
-    private LocalDate applicationDate;
+    private LocalDateTime applicationDate;
     private EmployeeCvDTO employeeCv;
     private ApplicationStatusDTO applicationStatus;
 

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "User_Notification")
@@ -22,7 +22,7 @@ public class UserNotification {
 	@Column(name = "Date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message = "Timestamp cannot be null")
-	private Date date;
+	private LocalDateTime date;
 
 	@ManyToOne
 	@JoinColumn(name = "Notification_Id", nullable = false)

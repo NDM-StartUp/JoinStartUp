@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -93,8 +93,8 @@ public class EmployeeController {
     @GetMapping("/{employeeId}/applications")
     public ResponseEntity<List<GetApplicationDTO>> getApplicationsByEmployeeId(
             @RequestParam(required = false) String applicationStatus,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate,
             @PathVariable Long employeeId) {
 
         List<GetApplicationDTO> applications = applicationService.getApplicationsByEmployeeAndCriteria(applicationStatus, startDate, endDate, employeeId);

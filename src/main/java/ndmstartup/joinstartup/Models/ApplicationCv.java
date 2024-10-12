@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Application_Cv")
@@ -35,5 +35,5 @@ public class ApplicationCv {
 	@Column(name = "Date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message = "Application date cannot be null.")
-	private Date date;
+	private LocalDateTime date;
 }

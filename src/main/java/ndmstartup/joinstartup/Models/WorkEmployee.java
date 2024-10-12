@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Work_Employee")
@@ -38,9 +38,9 @@ public class WorkEmployee {
 	@Column(name = "Starting_Date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull
-	private Date startingDate;
+	private LocalDate startingDate;
 
 	@Column(name = "Ending_Date")
 	@Temporal(TemporalType.DATE)
-	private Date endingDate;
+	private LocalDate endingDate;
 }

@@ -69,7 +69,7 @@ insert into employee (user_id) values (2);
 insert into employee_cv (employee_id, link) values (1, 'https://example.com/cv/john_doe');
 insert into employee_cv (employee_id, link) values (2, 'https://example.com/cv/jane_smith');
 
-insert into application_cv (application_status_id, date, employee_cv_id, start_up_id) values (1, '2023-09-15', 1, 1);
+insert into application_cv (application_status_id, date, employee_cv_id, start_up_id) values (1, '2022-09-15', 1, 1);
 insert into application_cv (application_status_id, date, employee_cv_id, start_up_id) values (2, '2023-09-16', 2, 2);
 
 insert into employee_education (beginning_date, finishing_date, degree_type_id, employee_user_id, major_id, university_id) values ('2019-09-01', '2023-06-01', 1, 1, 1, 1);

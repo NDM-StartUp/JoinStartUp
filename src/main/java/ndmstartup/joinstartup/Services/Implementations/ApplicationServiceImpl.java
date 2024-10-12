@@ -10,7 +10,7 @@ import ndmstartup.joinstartup.Repositories.StartUpRepository;
 import ndmstartup.joinstartup.Services.Interfaces.ApplicationService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -25,7 +25,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	private final ApplicationMapper applicationMapper;
 
 	@Override
-	public List<GetApplicationDTO> getApplicationsByStartUpAndCriteria(String applicationStatus, Date startDate, Date endDate, Long startUpId) {
+	public List<GetApplicationDTO> getApplicationsByStartUpAndCriteria(String applicationStatus, LocalDateTime startDate, LocalDateTime endDate, Long startUpId) {
 		startUpRepository.findById(startUpId).orElseThrow(() -> new NoSuchElementException("Start up not found with id" + startUpId));
 
 		List<ApplicationCv> applications;
@@ -55,7 +55,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public List<GetApplicationDTO> getApplicationsByEmployeeAndCriteria(String applicationStatus, Date startDate, Date endDate, Long employeeId) {
+	public List<GetApplicationDTO> getApplicationsByEmployeeAndCriteria(String applicationStatus, LocalDateTime startDate, LocalDateTime endDate, Long employeeId) {
 		employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
 
 		List<ApplicationCv> applications;
