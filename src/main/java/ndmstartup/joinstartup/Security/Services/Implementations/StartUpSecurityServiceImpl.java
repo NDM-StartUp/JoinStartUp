@@ -27,6 +27,6 @@ public class StartUpSecurityServiceImpl implements StartUpSecurityService {
         StartUp startUp = startUpRepository
                 .findById(startUpId)
                 .orElseThrow(()->new NoSuchElementException("Start up with id: " + startUpId + " not found"));
-        return startUp.getStartUpTeam().stream().anyMatch(employer -> employer.getId().equals(userId));
+        return startUp.getStartUpTeam().stream().anyMatch(employee -> employee.getId().equals(userId));
     }
 }
