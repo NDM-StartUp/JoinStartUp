@@ -43,6 +43,7 @@ insert into required_skill (skill_id, start_up_id) values (2, 2);
 insert into required_skill (skill_id, start_up_id) values (3, 3);
 
 insert into start_up_status (date, progress_status_id, start_up_id) values ('2023-10-01', 1, 1);
+insert into start_up_status (date, progress_status_id, start_up_id) values ('2023-10-01', 2, 1);
 insert into start_up_status (date, progress_status_id, start_up_id) values ('2023-10-02', 2, 2);
 insert into start_up_status (date, progress_status_id, start_up_id) values ('2023-10-03', 3, 3);
 

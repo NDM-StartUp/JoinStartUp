@@ -27,9 +27,10 @@ public class ApplicationCvServiceImpl implements ApplicationCvService{
 		ApplicationStatus applicationStatus = applicationStatusRepository.findByName(applicationStatusName)
 				.orElseThrow(() -> new NoSuchElementException("ApplicationStatus not found with name: " + applicationStatusName));
 
-		if(Objects.equals(applicationCv.getStartUp().getId(), startUpId)){
+		if(!Objects.equals(applicationCv.getStartUp().getId(), startUpId)){
 			throw new NoSuchElementException("Application with id: " + applicationCvId + " does not belong to StartUp with id: " + startUpId);
 		}
+
 		applicationCv.setStatus(applicationStatus);
 
 		applicationRepository.save(applicationCv);

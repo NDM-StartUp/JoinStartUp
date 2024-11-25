@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface StartUpStatusRepository extends JpaRepository<StartUpStatus, Long> {
 
-	@Query("SELECT sus FROM StartUpStatus sus WHERE sus.startUp.id = :startUpId")
+	@Query(value = "SELECT * FROM start_up_status WHERE start_up_id = :startUpId ORDER BY id DESC LIMIT 1", nativeQuery = true)
 	Optional<StartUpStatus> findByStartUpId(@Param("startUpId") Long startUpId);
 
 	@Query("SELECT sus FROM StartUpStatus sus JOIN FETCH sus.progressStatus WHERE sus.startUp.id = :startUpId")
