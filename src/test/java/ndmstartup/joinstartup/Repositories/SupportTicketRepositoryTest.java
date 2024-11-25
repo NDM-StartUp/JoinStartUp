@@ -47,7 +47,7 @@ public class SupportTicketRepositoryTest {
 	@Test
 	public void testFindAllByStatusName_ReturnsAllSupportTickets_WhenNotExist() {
 
-		List<SupportTicket> tickets = supportTicketRepository.findAllByStatusName("Abrakadabra");
+		List<SupportTicket> tickets = supportTicketRepository.findAllByStatusName("Resolved");
 
 		assertTrue(tickets.isEmpty());
 	}
