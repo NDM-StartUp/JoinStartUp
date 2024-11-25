@@ -20,6 +20,7 @@ public class SupportTicketRepositoryTest {
 	public void testFindAllByUserId_ReturnsAllSupportTickets_WhenExist(){
 		List<SupportTicket> tickets = supportTicketRepository.findAllByUserId(1L);
 
+		assertNotNull(tickets);
 		assertFalse(tickets.isEmpty());
 		assertEquals(1, tickets.size());
 		assertEquals("Issue 1", tickets.get(0).getName());
@@ -30,6 +31,7 @@ public class SupportTicketRepositoryTest {
 	public void testFindAllByUserId_ReturnsAllSupportTickets_WhenNotExist(){
 		List<SupportTicket> tickets = supportTicketRepository.findAllByUserId(999L);
 
+		assertNotNull(tickets);
 		assertTrue(tickets.isEmpty());
 	}
 
@@ -38,6 +40,7 @@ public class SupportTicketRepositoryTest {
 
 		List<SupportTicket> tickets = supportTicketRepository.findAllByStatusName("Closed");
 
+		assertNotNull(tickets);
 		assertFalse(tickets.isEmpty());
 		assertEquals(1, tickets.size());
 		assertEquals("Issue 2", tickets.get(0).getName());
@@ -49,6 +52,7 @@ public class SupportTicketRepositoryTest {
 
 		List<SupportTicket> tickets = supportTicketRepository.findAllByStatusName("Resolved");
 
+		assertNotNull(tickets);
 		assertTrue(tickets.isEmpty());
 	}
 }
