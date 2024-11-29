@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -17,16 +18,18 @@ public class StartUpEmployeeRepositoryTest {
 
 	@Test
 	public void testFindByStartUpIdAndEmployeeId() {
-		StartUpEmployee result = startUpEmployeeRepository.findByStartUpIdAndEmployeeId(1L, 1L);
+		StartUpEmployee result = startUpEmployeeRepository.findByStartUpIdAndEmployeeId(1L, 1L).orElse(null);
 
+		assertNotNull(result);
 		assertEquals("Doe", result.getEmployee().getUser().getLastName());
 		assertEquals("TechCo", result.getStartUp().getCompanyName());
 	}
 
 	@Test
 	public void testFindByEmployeeId() {
-		StartUpEmployee result = startUpEmployeeRepository.findByEmployeeId(2L);
+		StartUpEmployee result = startUpEmployeeRepository.findByEmployeeId(2L).orElse(null);
 
+		assertNotNull(result);
 		assertEquals("Smith", result.getEmployee().getUser().getLastName());
 	}
 }

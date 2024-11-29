@@ -4,8 +4,10 @@ import ndmstartup.joinstartup.Models.StartUpEmployee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface StartUpEmployeeRepository extends JpaRepository<StartUpEmployee, Long> {
-    StartUpEmployee findByStartUpIdAndEmployeeId(Long startUpId, Long employeeId);
-    StartUpEmployee findByEmployeeId(Long employeeId);
+    Optional<StartUpEmployee> findByStartUpIdAndEmployeeId(Long startUpId, Long employeeId);
+    Optional<StartUpEmployee> findByEmployeeId(Long employeeId);
 }

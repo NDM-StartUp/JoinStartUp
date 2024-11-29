@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public GetEmployeeEducationDTO getEducationByEmployeeId(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not foundwith id" + employeeId));
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
 
         return employeeMapper.entityToEducationDTO(employee);
     }
@@ -85,7 +85,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void addEducationByEmployeeId(Long employeeId, PostEmployeeEducationDTO education) {
-        EmployeeEducation employeeEducation = educationMapper.postDtoToEntity(education);
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee not found with id" + employeeId));
+        EmployeeEducation employeeEducation = educationMapper.postDtoToEntity(education, employee);
         employeeEducationRepository.save(employeeEducation);
     }
 

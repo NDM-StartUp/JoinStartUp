@@ -13,6 +13,7 @@ import ndmstartup.joinstartup.Services.Interfaces.PositionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,9 @@ public class PositionServiceImpl implements PositionService {
 	public GetEmployeePositionDTO getEmployeePositions(Long startUpId, Long employeeId) {
 		StartUpEmployee startUpEmployee = startUpId!=null ?
 				startUpEmployeeRepository.findByStartUpIdAndEmployeeId(startUpId, employeeId)
-				:startUpEmployeeRepository.findByEmployeeId(employeeId);
+						.orElseThrow(()->new NoSuchElementException("No positions with start up id " + startUpId  +" and employee id " + employeeId))
+				:startUpEmployeeRepository.findByEmployeeId(employeeId)
+						.orElseThrow(()->new NoSuchElementException("No positions with employee id " + employeeId));
 		return employeeMapper.entityToPositionDTO(startUpEmployee);
 	}
 }

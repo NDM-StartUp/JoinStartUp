@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.EducationDTO;
 import ndmstartup.joinstartup.DTOs.PostEmployeeEducationDTO;
 import ndmstartup.joinstartup.DTOs.GetUniversityDTO;
+import ndmstartup.joinstartup.Models.Employee;
 import ndmstartup.joinstartup.Models.EmployeeEducation;
 import ndmstartup.joinstartup.Repositories.DegreeTypeRepository;
 import ndmstartup.joinstartup.Repositories.MajorRepository;
@@ -21,8 +22,9 @@ public class EducationMapper {
     private final MajorRepository majorRepository;
 
 
-    public EmployeeEducation postDtoToEntity(PostEmployeeEducationDTO educationDTO){
+    public EmployeeEducation postDtoToEntity(PostEmployeeEducationDTO educationDTO, Employee employee){
         return EmployeeEducation.builder()
+                .employee(employee)
                 .university(universityRepository.findById(educationDTO.getUniversityId())
                         .orElseThrow(()->new NoSuchElementException("University not found")))
                 .degreeType(degreeTypeRepository.findById(educationDTO.getDegreeTypeId())
