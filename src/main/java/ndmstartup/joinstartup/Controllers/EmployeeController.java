@@ -23,7 +23,7 @@ public class EmployeeController {
     private final PositionService positionService;
 
 
-    @PreAuthorize("#employeeId == authentication.principal.id ") //TO DO
+//    @PreAuthorize("#employeeId == authentication.principal.id ") //TO DO
     @GetMapping("/{employeeId}/experience")
     public ResponseEntity<GetEmployeeExperienceDTO> getExperienceByEmployeeId(@PathVariable Long employeeId) {
         GetEmployeeExperienceDTO experienceDTO = employeeService.getExperienceByEmployeeId(employeeId);

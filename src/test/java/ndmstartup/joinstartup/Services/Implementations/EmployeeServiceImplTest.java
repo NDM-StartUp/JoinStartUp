@@ -79,7 +79,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.getExperienceByEmployeeId(employeeId));
 
-        Assertions.assertEquals(exception.getMessage(), "Employee not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Employee not found with id " + employeeId);
 
     }
 
@@ -107,7 +107,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.getEducationByEmployeeId(employeeId));
 
-        Assertions.assertEquals(exception.getMessage(), "Employee not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Employee not found with id " + employeeId);
 
     }
 
@@ -135,7 +135,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.getSkillsByEmployeeId(employeeId));
 
-        Assertions.assertEquals(exception.getMessage(), "Employee not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Employee not found with id " + employeeId);
 
     }
 
@@ -166,7 +166,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.deleteEmployeeSkill(employeeId, skillId));
 
-        Assertions.assertEquals(exception.getMessage(), "Employee not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Employee not found with id " + employeeId);
     }
 
     @Test
@@ -178,7 +178,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.deleteEmployeeSkill(employeeId, skillId));
 
-        Assertions.assertEquals(exception.getMessage(), "Skill not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Skill not found with id " + employeeId);
     }
 
     @Test
@@ -222,7 +222,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.addSkillToEmployee(employeeId, skillId));
 
-        Assertions.assertEquals(exception.getMessage(), "Employee not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Employee not found with id " + employeeId);
     }
 
     @Test
@@ -234,7 +234,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.addSkillToEmployee(employeeId, skillId));
 
-        Assertions.assertEquals(exception.getMessage(), "Skill not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Skill not found with id " + employeeId);
     }
 
     @Test
@@ -264,7 +264,7 @@ class EmployeeServiceImplTest {
         PostEmployeeExperienceDTO experience = new PostEmployeeExperienceDTO(new Position(), "LOL", LocalDate.now().minusDays(2), null);
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.addExperienceByEmployeeId(employeeId, experience));
 
-        Assertions.assertEquals(exception.getMessage(), "Employee not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Employee not found with id " + employeeId);
     }
 
     @Test
@@ -288,7 +288,7 @@ class EmployeeServiceImplTest {
 
         NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> employeeService.addEducationByEmployeeId(employeeId, education));
 
-        Assertions.assertEquals(exception.getMessage(), "Employee not found with id" + employeeId);
+        Assertions.assertEquals(exception.getMessage(), "Employee not found with id " + employeeId);
 
 
     }
