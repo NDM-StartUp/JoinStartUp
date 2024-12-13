@@ -34,4 +34,5 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: mvn -B package --file pom.xml
-  
+    - name: Run tests
+      run: mvn test
