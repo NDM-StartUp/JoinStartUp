@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -16,6 +16,6 @@ public class EducationDTO {
     private GetUniversityDTO university;
     private String major;
     private String degreeType;
-    private Date beginningDate;
-    private Date finishingDate;
+    private LocalDate beginningDate;
+    private LocalDate finishingDate;
 }

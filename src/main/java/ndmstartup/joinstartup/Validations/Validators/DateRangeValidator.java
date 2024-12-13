@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import ndmstartup.joinstartup.Validations.Annotations.ValidDateRange;
 
 import java.lang.reflect.Field;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DateRangeValidator implements ConstraintValidator<ValidDateRange, Object> {
     private String startDateFieldName;
@@ -26,14 +26,14 @@ public class DateRangeValidator implements ConstraintValidator<ValidDateRange, O
             startDateField.setAccessible(true);
             endDateField.setAccessible(true);
 
-            Date startDate = (Date) startDateField.get(value);
-            Date endDate = (Date) endDateField.get(value);
+            LocalDate startDate = (LocalDate) startDateField.get(value);
+            LocalDate endDate = (LocalDate) endDateField.get(value);
 
             if (startDate == null || endDate == null) {
                 return true;
             }
 
-            return endDate.after(startDate);
+            return endDate.isAfter(startDate);
         } catch (Exception e) {
             return false;
         }

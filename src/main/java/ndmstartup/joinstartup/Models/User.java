@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -50,7 +50,7 @@ public class User {
 	@Column(name = "Registration_Date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull
-	private Date registrationDate;
+	private LocalDate registrationDate;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<LoginHistory> loginHistory = new ArrayList<>();

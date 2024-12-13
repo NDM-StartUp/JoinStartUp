@@ -4,10 +4,11 @@ import ndmstartup.joinstartup.Models.StartUp;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface StartUpRepository extends JpaRepository<StartUp, Long> {
 
 //	Optional<StartUp> findByCompanyName (String companyName);

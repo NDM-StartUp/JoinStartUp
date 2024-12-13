@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,5 +14,5 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetLoginHistoryDTO {
-	private Date loginDate;
+	private LocalDateTime loginDate;
 }

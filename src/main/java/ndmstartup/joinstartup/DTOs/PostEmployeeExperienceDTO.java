@@ -10,7 +10,7 @@ import lombok.Data;
 import ndmstartup.joinstartup.Models.Position;
 import ndmstartup.joinstartup.Validations.Annotations.ValidDateRange;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -27,8 +27,8 @@ public class PostEmployeeExperienceDTO {
 
         @NotNull(message = "Starting date cannot be null")
         @PastOrPresent(message = "Starting date must be in the past or present")
-        private Date startingDate;
+        private LocalDate startingDate;
 
-        private Date endingDate;
+        private LocalDate endingDate;
 
 }

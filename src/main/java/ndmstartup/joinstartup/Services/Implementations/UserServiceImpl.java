@@ -12,9 +12,7 @@ import ndmstartup.joinstartup.Services.Interfaces.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -36,7 +34,7 @@ public class  UserServiceImpl implements UserService {
     @Transactional
     public void addUser(PostUserDTO postUserDTO, boolean isEmployee) {
         User user = userMapper.DTOToEntity(postUserDTO);
-        user.setRegistrationDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+        user.setRegistrationDate(LocalDate.now());
 
         userRepository.save(user);
 

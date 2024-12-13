@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Employee_Education")
@@ -38,9 +38,9 @@ public class EmployeeEducation {
 	@Column(name = "Beginning_Date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "Beginning date cannot be null")
-	private Date beginningDate;
+	private LocalDate beginningDate;
 
 	@Column(name = "Finishing_Date")
 	@Temporal(TemporalType.DATE)
-	private Date finishingDate;
+	private LocalDate finishingDate;
 }

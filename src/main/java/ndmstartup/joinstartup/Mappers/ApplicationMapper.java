@@ -5,15 +5,13 @@ import ndmstartup.joinstartup.DTOs.GetApplicationDTO;
 import ndmstartup.joinstartup.Models.ApplicationCv;
 import org.springframework.stereotype.Service;
 
-import java.time.ZoneId;
-
 @Service
 @RequiredArgsConstructor
 public class ApplicationMapper {
 	public GetApplicationDTO entityToDTO(ApplicationCv application) {
 		return GetApplicationDTO.builder()
 				.id(application.getId())
-				.applicationDate(application.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+				.applicationDate(application.getDate())
 				.employeeCv(GetApplicationDTO.EmployeeCvDTO.builder()
 						.cvLink(application.getEmployeeCv().getLink())
 						.employee(GetApplicationDTO.EmployeeCvDTO.EmployeeDTO.builder()

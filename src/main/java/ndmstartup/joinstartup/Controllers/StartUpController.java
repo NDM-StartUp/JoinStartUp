@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -51,8 +51,8 @@ public class StartUpController {
 	@GetMapping("/{startUpId}/applications")
 	public ResponseEntity<List<GetApplicationDTO>> getApplications(
 			@RequestParam(required = false) String applicationStatus,
-			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date  startDate,
-			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate, @PathVariable Long startUpId) {
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime startDate,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime endDate, @PathVariable Long startUpId) {
 
 		List<GetApplicationDTO> applications = applicationService.getApplicationsByStartUpAndCriteria(applicationStatus, startDate, endDate, startUpId);
 		return ResponseEntity.ok(applications);

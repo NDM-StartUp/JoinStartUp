@@ -2,7 +2,6 @@ package ndmstartup.joinstartup.Models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,7 @@ public class EmployeeCv {
 	@Column(name = "Link", nullable = false)
 	@NotBlank(message = "Link to a CV is mandatory.")
 	@Size(max = 100)
-	@Pattern(regexp = "^(https?://)?([a-zA-Z0-9.-]+)(:[0-9]{1,5})?(/[a-zA-Z0-9()@:%_+.~#?&/=-]*)?$\n", message = "Invalid link provided.")
+//	@Pattern(regexp = "^(https?://)?([a-zA-Z0-9.-]+)(:[0-9]{1,5})?(/[a-zA-Z0-9()@:%_+.~#?&/=-]*)?$\n", message = "Invalid link provided.")
 	private String link;
 
 	@OneToMany(mappedBy = "employeeCv", cascade = CascadeType.ALL)

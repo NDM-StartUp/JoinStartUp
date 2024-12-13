@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import ndmstartup.joinstartup.Validations.Annotations.ValidDateRange;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -33,9 +33,9 @@ public class PostEmployeeEducationDTO {
 
         @NotNull(message = "Beginning date cannot be null")
         @PastOrPresent(message = "Beginning date must be in the past or present")
-        private Date beginningDate;
+        private LocalDate beginningDate;
 
         @NotNull(message = "Finishing date cannot be null")
-        private Date finishingDate;
+        private LocalDate finishingDate;
 
 }

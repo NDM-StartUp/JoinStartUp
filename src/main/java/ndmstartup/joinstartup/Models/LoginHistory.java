@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Login_History")
@@ -22,7 +22,7 @@ public class LoginHistory {
 	@Column(name = "Date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull(message = "Login history date cannot be null")
-	private Date date;
+	private LocalDateTime date;
 
 	@ManyToOne
 	@JoinColumn(name = "User_Id", nullable = false)
