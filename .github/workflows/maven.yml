@@ -31,6 +31,7 @@ jobs:
       env:
           SPRING_PROFILES_ACTIVE: test
           SPRING_CONFIG_LOCATION: src/main/resources/application-test.properties
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
       run: mvn -B package --file pom.xml
       
 
