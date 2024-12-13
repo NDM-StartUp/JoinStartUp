@@ -30,6 +30,7 @@ jobs:
     - name: Build with Maven
       env:
           SPRING_PROFILES_ACTIVE: test
+          SPRING_CONFIG_LOCATION: src/main/resources/application-test.properties
       run: mvn -B package --file pom.xml
       
 
