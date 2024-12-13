@@ -35,4 +35,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: mvn -B package --file pom.xml
     - name: Run tests
-      run: mvn test
+      run: mvn test -Dspring.profiles.active=test
