@@ -33,6 +33,6 @@ public class AuthController {
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
-        return ResponseEntity.ok("Logged in");
+        return ResponseEntity.ok("Loggeed in");
     }
 }
