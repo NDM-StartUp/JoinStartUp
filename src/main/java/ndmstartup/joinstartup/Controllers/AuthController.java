@@ -34,5 +34,6 @@ public class AuthController {
         cookie.setPath("/");
         response.addCookie(cookie);
         return ResponseEntity.ok("Logged in");
+
     }
 }
