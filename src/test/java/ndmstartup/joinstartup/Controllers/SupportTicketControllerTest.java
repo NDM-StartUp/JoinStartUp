@@ -17,7 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -37,8 +36,6 @@ public class SupportTicketControllerTest {
 
 	@MockBean
 	private SupportTicketService supportTicketService;
-
-	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@Test
 	void getSupportTicketByTicketId_Success() throws Exception {
