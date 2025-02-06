@@ -62,7 +62,7 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(authDTO)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Loggeeed in"))
+                .andExpect(content().string("Logged in"))
                 .andExpect(header().string("Set-Cookie", "jwt=jwt-token; Path=/; HttpOnly"));
 
         Mockito.verify(authService, Mockito.times(1)).verify(authDTO);
