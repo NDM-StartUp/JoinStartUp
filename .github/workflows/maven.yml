@@ -35,11 +35,12 @@ jobs:
           SPRING_CONFIG_LOCATION: src/main/resources/application-test.properties
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file Backend/pom.xml
     - name: Run tests
       env:
           SPRING_PROFILES_ACTIVE: test
           SPRING_CONFIG_LOCATION: src/main/resources/application-test.properties
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn test -Dspring.profiles.active=test
+      run: mvn test --file Backend/pom.xml -Dspring.profiles.active=test
+
