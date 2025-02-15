@@ -30,7 +30,6 @@ public class JwtFilter extends OncePerRequestFilter {
 //        String authHeader = request.getHeader("Authorization"); // For non-cookie jwt
         String jwtToken = null;
         String email = null;
-
 //        if (authHeader != null && authHeader.startsWith("Bearer ")) { // For non-cookie jwt
 //            jwtToken = authHeader.substring(7);
 //            email = jwtService.extractEmail(jwtToken);
@@ -38,13 +37,17 @@ public class JwtFilter extends OncePerRequestFilter {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("jwt")) {
+                    String requestURI = request.getRequestURI();
+                    if (requestURI.startsWith("/auth/login") || requestURI.startsWith("/auth/register")) {
+                        break;
+                    }
                     jwtToken = cookie.getValue();
                     break;
                 }
             }
         }
 
-        if (jwtToken != null) {
+        if (jwtToken != null && !jwtToken.isEmpty()) {
             email = jwtService.extractEmail(jwtToken);
         }
 

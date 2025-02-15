@@ -5,6 +5,8 @@ import ndmstartup.joinstartup.DTOs.AuthDTO;
 import ndmstartup.joinstartup.Exceptions.InvalidUsernameOrPasswordException;
 import ndmstartup.joinstartup.Security.Filters.JwtFilter;
 import ndmstartup.joinstartup.Security.Services.Implementations.AuthServiceImpl;
+import ndmstartup.joinstartup.Security.Services.Implementations.JWTService;
+import ndmstartup.joinstartup.Security.Services.Interfaces.AuthService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -28,10 +30,13 @@ class AuthControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private AuthServiceImpl authService;
+    private AuthService authService;
 
     @MockBean
     private JwtFilter jwtFilter;
+
+    @MockBean
+    private JWTService jwtService;
 
     @Test
     void registerUser_Success() throws Exception {
@@ -56,7 +61,7 @@ class AuthControllerTest {
         AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Sefi_+");
 
         String mockToken = "jwt-token";
-        Mockito.when(authService.verify(authDTO)).thenReturn(mockToken);
+        Mockito.when(authService.login(authDTO)).thenReturn(mockToken);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -65,20 +70,20 @@ class AuthControllerTest {
                 .andExpect(content().string("Logged in"))
                 .andExpect(header().string("Set-Cookie", "jwt=jwt-token; Path=/; HttpOnly"));
 
-        Mockito.verify(authService, Mockito.times(1)).verify(authDTO);
+        Mockito.verify(authService, Mockito.times(1)).login(authDTO);
     }
 
     @Test
     void loginUser_FailToLogin() throws Exception {
         AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Sefi_+");
 
-        Mockito.when(authService.verify(authDTO)).thenThrow(InvalidUsernameOrPasswordException.class);
+        Mockito.when(authService.login(authDTO)).thenThrow(InvalidUsernameOrPasswordException.class);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(authDTO)))
                 .andExpect(status().isUnauthorized());
 
-        Mockito.verify(authService, Mockito.times(1)).verify(authDTO);
+        Mockito.verify(authService, Mockito.times(1)).login(authDTO);
     }
 }

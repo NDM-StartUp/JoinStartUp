@@ -1,5 +1,6 @@
 package ndmstartup.joinstartup.Controllers;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import ndmstartup.joinstartup.Exceptions.InvalidUsernameOrPasswordException;
 import ndmstartup.joinstartup.Exceptions.StatusAlreadyExistsConflictException;
 import ndmstartup.joinstartup.Exceptions.UserChangeTypeConflictException;
@@ -13,6 +14,12 @@ import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<String> handleExpiredJwtException(Exception e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNoSuchElementException(Exception e) {
@@ -39,10 +46,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
+
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleUnhandledException(Exception e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("An unexpected error occurred");
+                .body("An unexpected error occurred" + e.getMessage());
     }
 
 }
