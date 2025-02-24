@@ -18,7 +18,7 @@ public class RegisterDTO {
 
     @NotNull(message = "Password cannot be null")
     @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=]).*$",
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=_-]).*$",
             message = "Password must contain at least one digit, one letter, and one special character")
     private String password;
 
@@ -31,8 +31,8 @@ public class RegisterDTO {
     private String lastName;
 
     @NotBlank(message = "Phone number is mandatory")
-    @Size(max =20)
-    @Pattern(regexp = "\\+?[0-9\\-.()\\s]+", message = "Invalid phone number")
+    @Size(min = 5, max = 20)
+//    @Pattern(regexp = "\\+?[0-9\\-.()\\s]+", message = "Invalid phone number")
     private String phone;
 
     @NotBlank(message = "Description is mandatory")

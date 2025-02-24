@@ -39,7 +39,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 if (cookie.getName().equals("jwt")) {
                     String requestURI = request.getRequestURI();
                     if (requestURI.startsWith("/auth/login") || requestURI.startsWith("/auth/register")) {
-                        break;
+                        filterChain.doFilter(request, response);
+                        return;
                     }
                     jwtToken = cookie.getValue();
                     break;

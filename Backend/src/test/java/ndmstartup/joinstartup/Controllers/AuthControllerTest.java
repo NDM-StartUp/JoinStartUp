@@ -1,10 +1,12 @@
 package ndmstartup.joinstartup.Controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.Cookie;
 import ndmstartup.joinstartup.DTOs.AuthDTO;
+import ndmstartup.joinstartup.DTOs.GetUserAuthInfoDTO;
+import ndmstartup.joinstartup.DTOs.RegisterDTO;
 import ndmstartup.joinstartup.Exceptions.InvalidUsernameOrPasswordException;
 import ndmstartup.joinstartup.Security.Filters.JwtFilter;
-import ndmstartup.joinstartup.Security.Services.Implementations.AuthServiceImpl;
 import ndmstartup.joinstartup.Security.Services.Implementations.JWTService;
 import ndmstartup.joinstartup.Security.Services.Interfaces.AuthService;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -40,25 +44,25 @@ class AuthControllerTest {
 
     @Test
     void registerUser_Success() throws Exception {
-        AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Sefi_+");
+        RegisterDTO registerDTO = new RegisterDTO("asd@gmail.com", "123456A-", "ASD", "LOL","123123213", "asdsdgfds gdfg dfg");
 
 
-        Mockito.doNothing().when(authService).register(authDTO);
+        Mockito.doNothing().when(authService).register(registerDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(authDTO))
+                        .content(new ObjectMapper().writeValueAsString(registerDTO))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string("Registered"));
 
-        Mockito.verify(authService, Mockito.times(1)).register(authDTO);
+        Mockito.verify(authService, Mockito.times(1)).register(registerDTO);
     }
 
     @Test
     void loginUser_Success() throws Exception {
-        AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Sefi_+");
+        AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Seeffi_+");
 
         String mockToken = "jwt-token";
         Mockito.when(authService.login(authDTO)).thenReturn(mockToken);
@@ -75,7 +79,7 @@ class AuthControllerTest {
 
     @Test
     void loginUser_FailToLogin() throws Exception {
-        AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Sefi_+");
+        AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Seeffi_+");
 
         Mockito.when(authService.login(authDTO)).thenThrow(InvalidUsernameOrPasswordException.class);
 
@@ -85,5 +89,55 @@ class AuthControllerTest {
                 .andExpect(status().isUnauthorized());
 
         Mockito.verify(authService, Mockito.times(1)).login(authDTO);
+    }
+
+    @Test
+    void logoutUser_Success() throws Exception {
+        AuthDTO authDTO = new AuthDTO("lol@gmail.com", "Seeffi_+");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/logout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(authDTO)))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Logged out"))
+                .andExpect(header().string("Set-Cookie", "jwt=; Path=/; HttpOnly"));
+    }
+
+    @Test
+    void verify_Success() throws Exception {
+        String mockToken = "jwt-token";
+        GetUserAuthInfoDTO authDTO = new GetUserAuthInfoDTO(1L, "lol@gmail.com", Set.of("ROLE_USER"));
+
+        Mockito.when(authService.getUserAuthInfo(mockToken)).thenReturn(authDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/verify")
+                        .cookie(new Cookie("jwt", mockToken)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(new ObjectMapper().writeValueAsString(authDTO)));
+
+    }
+
+    @Test
+    void verify_FailToVerify_CookieIsMissing() throws Exception {
+        String mockToken = "jwt-token";
+        GetUserAuthInfoDTO authDTO = new GetUserAuthInfoDTO(1L, "lol@gmail.com", Set.of("ROLE_USER"));
+
+        Mockito.when(authService.getUserAuthInfo(mockToken)).thenReturn(authDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/verify"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void verify_FailToVerify_JWTIsMissing() throws Exception {
+        String mockToken = "jwt-token";
+        GetUserAuthInfoDTO authDTO = new GetUserAuthInfoDTO(1L, "lol@gmail.com", Set.of("ROLE_USER"));
+
+        Mockito.when(authService.getUserAuthInfo(mockToken)).thenReturn(authDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/verify")
+                        .cookie(new Cookie("notJWT", mockToken)))
+                .andExpect(status().isUnauthorized());
     }
 }

@@ -3,14 +3,13 @@ package ndmstartup.joinstartup.Controllers;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import ndmstartup.joinstartup.DTOs.AuthDTO;
 import ndmstartup.joinstartup.DTOs.GetUserAuthInfoDTO;
-import ndmstartup.joinstartup.DTOs.PostUserDTO;
 import ndmstartup.joinstartup.DTOs.RegisterDTO;
 import ndmstartup.joinstartup.Exceptions.InvalidUsernameOrPasswordException;
 import ndmstartup.joinstartup.Security.Services.Interfaces.AuthService;
-import ndmstartup.joinstartup.Services.Interfaces.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,23 +24,15 @@ import java.util.Arrays;
 public class AuthController {
 
     private final AuthService authService;
-    private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody RegisterDTO user) {
-        authService.register(AuthDTO.builder().email(user.getEmail()).password(user.getPassword()).build());
-        userService.addUser(PostUserDTO.builder()
-                        .firstName(user.getFirstName())
-                        .lastName(user.getLastName())
-                        .email(user.getEmail())
-                        .phone(user.getPhone())
-                        .description(user.getDescription())
-                .build(), false);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody RegisterDTO user) {
+        authService.register(user);
         return ResponseEntity.ok("Registered");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody AuthDTO user, HttpServletResponse response) {
+    public ResponseEntity<String> loginUser(@Valid @RequestBody AuthDTO user, HttpServletResponse response) {
         String token = authService.login(user);
         Cookie cookie = new Cookie("jwt", token);
         cookie.setHttpOnly(true);
@@ -61,8 +52,11 @@ public class AuthController {
 
     @PostMapping("/verify")
     public ResponseEntity<GetUserAuthInfoDTO> verifyUser(HttpServletRequest request) {
-
-        String token = Arrays.stream(request.getCookies())
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            throw new InvalidUsernameOrPasswordException("No token provided");
+        }
+        String token = Arrays.stream(cookies)
                 .filter(cookie -> "jwt".equals(cookie.getName()))
                 .map(Cookie::getValue)
                 .findFirst()
