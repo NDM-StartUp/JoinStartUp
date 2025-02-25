@@ -8,6 +8,8 @@ import {Navbar} from "./components/Navbar/Navbar.tsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import {Profile} from "./pages/Profile/Profile.tsx";
 import {ProtectedComponent} from "./components/ProtectedComponent/ProtectedComponent.tsx";
+import React from "react";
+import {Feed} from "./pages/Feed/Feed.tsx";
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
           <ProtectedComponent><Navbar/></ProtectedComponent>
           <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="/feed" element={<Feed/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
             <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
