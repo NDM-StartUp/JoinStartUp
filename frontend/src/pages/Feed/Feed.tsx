@@ -12,16 +12,22 @@ interface Startup {
   isPaid: boolean;
 }
 
+interface UserTypes {
+  isEmployee: boolean;
+  isEmployer: boolean;
+}
+
 export const Feed: React.FC = () => {
   const { user } = useContext(AuthContext);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [becomingEmployer, setBecomingEmployer] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [userTypes, setUserTypes] = useState<UserTypes | null>(null);
 
   useEffect(() => {
     fetchStartups();
+    checkUserRole();
   }, []);
 
   const fetchStartups = async () => {
@@ -37,6 +43,16 @@ export const Feed: React.FC = () => {
     }
   };
 
+  const checkUserRole = async () => {
+    if (!user || !user.id) return;
+    try {
+      const response = await axios.get<UserTypes>(`/users/${user.id}/user-types`);
+      setUserTypes(response.data);
+    } catch (err) {
+      console.error("Error checking user role:", err);
+    }
+  };
+
   const becomeEmployer = async () => {
     if (!user || !user.id) {
       setError("User not authenticated.");
@@ -46,7 +62,8 @@ export const Feed: React.FC = () => {
     setBecomingEmployer(true);
     try {
       await axios.post(`/users/${user.id}/add-role?addEmployerRole=true`);
-      setSuccessMessage("You are now an Employer! Start creating your own startup.");
+      alert("🎉 Congratulations! You are now a Startup Creator!");
+      window.location.reload();
     } catch (err) {
       setError("Error updating role. You may already be an Employer.");
     } finally {
@@ -82,18 +99,16 @@ export const Feed: React.FC = () => {
 
         <h1>Personalized</h1>
 
-        <div style={{
-          border: "1px solid #ccc",
-          padding: "20px",
-          textAlign: "center",
-          marginTop: "40px"
-        }}>
-          <h2>Become a Startup Creator!</h2>
-          <p>Take your career to the next level. Start your own startup!</p>
+        {userTypes?.isEmployee && !userTypes?.isEmployer && (
+            <div style={{
+              border: "1px solid #ccc",
+              padding: "20px",
+              textAlign: "center",
+              marginTop: "40px"
+            }}>
+              <h2>Become a Startup Creator!</h2>
+              <p>Take your career to the next level. Start your own startup!</p>
 
-          {successMessage ? (
-              <p>{successMessage}</p>
-          ) : (
               <button
                   onClick={becomeEmployer}
                   disabled={becomingEmployer}
@@ -101,8 +116,8 @@ export const Feed: React.FC = () => {
               >
                 {becomingEmployer ? "Processing..." : "Start as Employer"}
               </button>
-          )}
-        </div>
+            </div>
+        )}
       </div>
   );
 };
