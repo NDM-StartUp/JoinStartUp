@@ -10,6 +10,7 @@ import {Profile} from "./pages/Profile/Profile.tsx";
 import {ProtectedComponent} from "./components/ProtectedComponent/ProtectedComponent.tsx";
 import React from "react";
 import {Feed} from "./pages/Feed/Feed.tsx";
+import {FindStartups} from "./pages/FindStartUp/FindStartUp.tsx";
 
 function App() {
 
@@ -20,9 +21,10 @@ function App() {
           <ProtectedComponent><Navbar/></ProtectedComponent>
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="/feed" element={<Feed/>}/>
+            <Route path="/feed" element={<ProtectedRoute><Feed/></ProtectedRoute>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/register" element={<Register/>}/>
+            <Route path="/findStartUp" element={<ProtectedRoute><FindStartups/></ProtectedRoute>}/>
             <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
           </Routes>
         </BrowserRouter>

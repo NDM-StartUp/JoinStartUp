@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "../../utils/axiosInstance.tsx";
+import { AuthContext } from "../../contexts/authContext.tsx";
 
 interface Startup {
   id: number;
@@ -12,15 +13,12 @@ interface Startup {
 }
 
 export const Feed: React.FC = () => {
+  const { user } = useContext(AuthContext);
   const [startups, setStartups] = useState<Startup[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchParams, setSearchParams] = useState({
-    startUpId: "",
-    companyName: "",
-    location: "",
-    isPaid: "",
-  });
+  const [becomingEmployer, setBecomingEmployer] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchStartups();
@@ -29,14 +27,7 @@ export const Feed: React.FC = () => {
   const fetchStartups = async () => {
     setLoading(true);
     try {
-      const response = await axios.get<Startup[]>("/startUp/search", {
-        params: {
-          startUpId: searchParams.startUpId || undefined,
-          companyName: searchParams.companyName || undefined,
-          location: searchParams.location || undefined,
-          isPaid: searchParams.isPaid ? searchParams.isPaid === "true" : undefined,
-        },
-      });
+      const response = await axios.get<Startup[]>("/startUp/all");
       setStartups(response.data);
       setError(null);
     } catch (err) {
@@ -46,57 +37,28 @@ export const Feed: React.FC = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setSearchParams((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const becomeEmployer = async () => {
+    if (!user || !user.id) {
+      setError("User not authenticated.");
+      return;
+    }
 
-  const handleSearch = () => {
-    fetchStartups();
+    setBecomingEmployer(true);
+    try {
+      await axios.post(`/users/${user.id}/add-role?addEmployerRole=true`);
+      setSuccessMessage("You are now an Employer! Start creating your own startup.");
+    } catch (err) {
+      setError("Error updating role. You may already be an Employer.");
+    } finally {
+      setBecomingEmployer(false);
+    }
   };
 
   if (loading) return <p>Loading...</p>;
 
   return (
       <div style={{ padding: "20px" }}>
-        <h1>Startup Feed</h1>
-
-        <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid #ccc" }}>
-          <input
-              type="text"
-              name="startUpId"
-              placeholder="Startup ID"
-              value={searchParams.startUpId}
-              onChange={handleInputChange}
-              style={{ marginRight: "10px" }}
-          />
-          <input
-              type="text"
-              name="companyName"
-              placeholder="Company Name"
-              value={searchParams.companyName}
-              onChange={handleInputChange}
-              style={{ marginRight: "10px" }}
-          />
-          <input
-              type="text"
-              name="location"
-              placeholder="Location"
-              value={searchParams.location}
-              onChange={handleInputChange}
-              style={{ marginRight: "10px" }}
-          />
-          <select name="isPaid" value={searchParams.isPaid} onChange={handleInputChange} style={{ marginRight: "10px" }}>
-            <option value="">Paid?</option>
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
-          <button onClick={handleSearch}>Search</button>
-        </div>
-
+        <h1>Your recent applications</h1>
         {error ? <p>{error}</p> : (
             <div>
               {startups.length > 0 ? (
@@ -113,10 +75,34 @@ export const Feed: React.FC = () => {
                     ))}
                   </ul>
               ) : (
-                  <p>No startups found.</p>
+                  <p>No startups available.</p>
               )}
             </div>
         )}
+
+        <h1>Personalized</h1>
+
+        <div style={{
+          border: "1px solid #ccc",
+          padding: "20px",
+          textAlign: "center",
+          marginTop: "40px"
+        }}>
+          <h2>Become a Startup Creator!</h2>
+          <p>Take your career to the next level. Start your own startup!</p>
+
+          {successMessage ? (
+              <p>{successMessage}</p>
+          ) : (
+              <button
+                  onClick={becomeEmployer}
+                  disabled={becomingEmployer}
+                  style={{ padding: "10px 20px", marginTop: "10px" }}
+              >
+                {becomingEmployer ? "Processing..." : "Start as Employer"}
+              </button>
+          )}
+        </div>
       </div>
   );
 };
