@@ -127,6 +127,35 @@ public class StartUpServiceImplTest {
 		Mockito.verify(startUpRepository).findById(1L);
 	}
 
+	@Test
+	void findAllByUserId_User1_ReturnsStartUps() {
+		List<StartUp> startUps = List.of(startUp1);
+
+		Mockito.when(startUpRepository.findAllByUserId(1L)).thenReturn(startUps);
+		Mockito.when(startUpMapper.entityToDTO(startUp1))
+				.thenReturn(new GetStartUpDTO(1L, "Developer", "TechCo", "Exciting startup looking for a developer.", "Experience with Java", "New York", true));
+
+		List<GetStartUpDTO> result = startUpService.findAllByUserId(1L);
+
+		Assertions.assertEquals(1, result.size());
+		Assertions.assertEquals("TechCo", result.get(0).getCompanyName());
+
+		Mockito.verify(startUpRepository).findAllByUserId(1L);
+		Mockito.verify(startUpMapper).entityToDTO(startUp1);
+	}
+
+	@Test
+	void findAllByUserId_User999_ReturnsEmpty() {
+		Mockito.when(startUpRepository.findAllByUserId(999L)).thenReturn(Collections.emptyList());
+
+		List<GetStartUpDTO> result = startUpService.findAllByUserId(999L);
+
+		Assertions.assertTrue(result.isEmpty());
+
+		Mockito.verify(startUpRepository).findAllByUserId(999L);
+		Mockito.verify(startUpMapper, Mockito.never()).entityToDTO(Mockito.any());
+	}
+
 
 	@Test
 	void searchStartUpByCriteria_WithStartUpId() {

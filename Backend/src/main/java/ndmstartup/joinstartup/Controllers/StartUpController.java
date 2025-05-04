@@ -39,6 +39,12 @@ public class StartUpController {
 		return ResponseEntity.ok(startUps);
 	}
 
+	@GetMapping("/user/{userId}")
+	public ResponseEntity<List<GetStartUpDTO>> findAllStartUpsByUserId(@PathVariable Long userId){
+		List<GetStartUpDTO> startUps = startUpService.findAllByUserId(userId);
+		return ResponseEntity.ok(startUps);
+	}
+
 	@PreAuthorize("@startUpSecurityServiceImpl.isOwnerOfStartUp(#startUpId, authentication.principal.id) || " +
 			"@startUpSecurityServiceImpl.isEmployeeOfStartUp(#startUpId, authentication.principal.id)")
 	@GetMapping("/{startUpId}/employees")

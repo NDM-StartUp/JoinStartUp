@@ -63,6 +63,14 @@ public class StartUpServiceImpl implements StartUpService {
 	}
 
 	@Override
+	public List<GetStartUpDTO> findAllByUserId(Long userId) {
+		List<StartUp> startUps = startUpRepository.findAllByUserId(userId);
+		return startUps.stream()
+				.map(startUpMapper::entityToDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
 	@Transactional
 	public void addStartUp (PostStartUpDTO postStartUpDTO){
 		StartUp startUp = startUpMapper.DTOToEntity(postStartUpDTO);
@@ -139,6 +147,8 @@ public class StartUpServiceImpl implements StartUpService {
 		List<StartUpStatus> statuses = startUpStatusRepository.findAllByStartUpId(startUpId);
 		return statuses.stream().map(startUpMapper::entityToStartUpStatusDTO).collect(Collectors.toList());
 	}
+
+
 
 /*	@Override
 	public GetStartUpCompanyNameEmployeeDTO getEmployeesByStartUpCompanyName(String companyName) {

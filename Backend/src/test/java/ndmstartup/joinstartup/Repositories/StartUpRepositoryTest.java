@@ -38,6 +38,22 @@ public class StartUpRepositoryTest {
 	}
 
 	@Test
+	public void testFindAllByUserId_User1_ReturnsOneStartUp() {
+		List<StartUp> result = startUpRepository.findAllByUserId(1L);
+
+		assertEquals(1, result.size());
+		assertEquals("TechCo", result.get(0).getCompanyName());
+	}
+
+	@Test
+	public void testFindAllByUserId_User999_ReturnsEmpty() {
+		List<StartUp> result = startUpRepository.findAllByUserId(999L);
+
+		assertEquals(0, result.size());
+	}
+
+
+	@Test
 	public void testFindByProgressStatus() {
 		List<StartUp> result = startUpRepository.findByProgressStatus("Failed");
 		assertEquals(1, result.size());

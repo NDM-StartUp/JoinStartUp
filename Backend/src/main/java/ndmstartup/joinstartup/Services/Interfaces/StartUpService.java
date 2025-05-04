@@ -10,6 +10,8 @@ public interface StartUpService {
 	GetStartUpDTO getStartUpByStartUpId(Long startUpId);
 	GetStartUpIdEmployeeDTO getEmployeesByStartUpId(Long startUpId);
 
+	List<GetStartUpDTO> findAllByUserId(Long userId);
+
 	List<GetStartUpDTO> searchStartUpByCriteria(Long startUpId, String companyName, String location, Boolean isPaid);
 
 	void addStartUp (PostStartUpDTO postStartUpDTO);

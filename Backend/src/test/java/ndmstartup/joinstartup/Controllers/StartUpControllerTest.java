@@ -90,6 +90,49 @@ public class StartUpControllerTest {
 	}
 
 	@Test
+	void findAllStartUpsByUserId_User1_ReturnsStartUps() throws Exception {
+		List<GetStartUpDTO> mockStartUps = List.of(
+				new GetStartUpDTO(1L, "Developer", "TechCo", "Exciting startup looking for a developer.", "Experience with Java", "New York", true)
+		);
+
+		Mockito.when(startUpService.findAllByUserId(1L)).thenReturn(mockStartUps);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/startUp/user/1")
+						.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$[0].id").value(1))
+				.andExpect(jsonPath("$[0].companyName").value("TechCo"));
+
+		Mockito.verify(startUpService, Mockito.times(1)).findAllByUserId(1L);
+	}
+
+	@Test
+	void findAllStartUpsByUserId_User999_ReturnsEmpty() throws Exception {
+		Mockito.when(startUpService.findAllByUserId(999L)).thenReturn(Collections.emptyList());
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/startUp/user/999")
+						.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().json("[]"));
+
+		Mockito.verify(startUpService, Mockito.times(1)).findAllByUserId(999L);
+	}
+
+	@Test
+	void findAllStartUpsByUser_EmptyList() throws Exception {
+		Mockito.when(startUpService.findAllByUserId(2L)).thenReturn(Collections.emptyList());
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/startUp/user/2")
+						.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().json("[]"));
+
+		Mockito.verify(startUpService, Mockito.times(1)).findAllByUserId(2L);
+	}
+
+
+	@Test
 	void searchStartUp_Success() throws Exception {
 		List<GetStartUpDTO> mockStartUps = Collections.singletonList(
 				new GetStartUpDTO(

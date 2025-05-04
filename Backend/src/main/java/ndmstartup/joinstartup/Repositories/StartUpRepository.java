@@ -15,6 +15,10 @@ public interface StartUpRepository extends JpaRepository<StartUp, Long> {
 //	Optional<StartUp> findByLocation (String location);
 //	Optional<StartUp> findByIsPaid (boolean isPaid);
 
+
+	@Query("SELECT s FROM StartUp s JOIN s.employers e WHERE e.user.id = :userId ")
+	List<StartUp> findAllByUserId(@Param("userId") Long userId);
+
 	@Query("SELECT s FROM StartUp s WHERE (:startUpId IS NULL OR s.id = :startUpId) " +
 			"AND (:companyName IS NULL OR s.companyName = :companyName) " +
 			"AND (:location IS NULL OR s.location = :location) " +
